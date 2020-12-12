@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://multiplayer/lobby/resources/fonts/Pacifico-200px.tres" type="DynamicFont" id=1]
+
+[node name="Label" type="Label"]
+modulate = Color( 0, 0, 0, 1 )
+margin_right = 31.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "hello"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://resources/sprites/buttons/lineDark33.png" type="Texture" id=1]
+[ext_resource path="res://resources/sprites/buttons/lineDark34.png" type="Texture" id=2]
+[ext_resource path="res://resources/sprites/buttons/lineDark32.png" type="Texture" id=3]
+[ext_resource path="res://resources/sprites/buttons/lineDark31.png" type="Texture" id=4]
+[ext_resource path="res://resources/sprites/buttons/lineDark19.png" type="Texture" id=5]
+[ext_resource path="res://resources/sprites/buttons/lineDark20.png" type="Texture" id=6]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="left" type="TouchScreenButton" parent="."]
+position = Vector2( 158.478, 850 )
+normal = ExtResource( 5 )
+action = "ui_left"
+visibility_mode = 1
+
+[node name="right" type="TouchScreenButton" parent="."]
+position = Vector2( 301.618, 850 )
+normal = ExtResource( 6 )
+action = "ui_right"
+visibility_mode = 1
+
+[node name="jump" type="TouchScreenButton" parent="."]
+position = Vector2( 1638.23, 775 )
+normal = ExtResource( 1 )
+action = "jump"
+visibility_mode = 1
+
+[node name="abilityQ" type="TouchScreenButton" parent="."]
+position = Vector2( 1563.23, 850 )
+normal = ExtResource( 2 )
+action = "ability_q"
+visibility_mode = 1
+
+[node name="abilityS" type="TouchScreenButton" parent="."]
+position = Vector2( 1638.23, 925 )
+normal = ExtResource( 3 )
+action = "ability_s"
+visibility_mode = 1
+
+[node name="abilityE" type="TouchScreenButton" parent="."]
+position = Vector2( 1713.23, 850 )
+normal = ExtResource( 4 )
+action = "ability_e"
+visibility_mode = 1

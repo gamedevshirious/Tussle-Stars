@@ -1,0 +1,203 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://multiplayer/lobby/resources/fonts/RobotoLight-64px.tres" type="DynamicFont" id=1]
+[ext_resource path="res://multiplayer/lobby/Lobby.gd" type="Script" id=2]
+[ext_resource path="res://resources/sprites/game icons/dark/forward.png" type="Texture" id=3]
+[ext_resource path="res://multiplayer/lobby/resources/fonts/RobotoLight-24px.tres" type="DynamicFont" id=4]
+[ext_resource path="res://resources/fonts/RobotoMono-Bold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://resources/sprites/game icons/dark/multiplayer.png" type="Texture" id=6]
+[ext_resource path="res://resources/sprites/game icons/dark/door.png" type="Texture" id=7]
+[ext_resource path="res://resources/sprites/game icons/dark/return.png" type="Texture" id=8]
+[ext_resource path="res://resources/sprites/game icons/dark/share1.png" type="Texture" id=9]
+[ext_resource path="res://multiplayer/lobby/components/LobbyEntry/LobbyEntry.tscn" type="PackedScene" id=10]
+[ext_resource path="res://resources/sprites/game icons/light/share1.png" type="Texture" id=11]
+[ext_resource path="res://resources/sprites/game icons/light/forward.png" type="Texture" id=12]
+[ext_resource path="res://resources/sprites/game icons/light/return.png" type="Texture" id=13]
+[ext_resource path="res://resources/sprites/game icons/light/multiplayer.png" type="Texture" id=14]
+[ext_resource path="res://resources/sprites/game icons/light/door.png" type="Texture" id=15]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 5 )
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.882353, 0.882353, 0.882353, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lobbies" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -15.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="HBoxContainer" parent="Lobbies"]
+margin_right = 994.0
+margin_bottom = 50.0
+size_flags_stretch_ratio = 0.1
+alignment = 1
+
+[node name="Name" type="LineEdit" parent="Lobbies/Host"]
+margin_right = 831.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+custom_fonts/font = ExtResource( 1 )
+placeholder_text = "Lobby Name"
+
+[node name="Host" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 835.0
+margin_right = 885.0
+margin_bottom = 50.0
+size_flags_stretch_ratio = 0.1
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 14 )
+
+[node name="Refresh" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 889.0
+margin_right = 939.0
+margin_bottom = 50.0
+size_flags_stretch_ratio = 0.1
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 13 )
+
+[node name="CopyLink" type="TextureButton" parent="Lobbies/Host"]
+visible = false
+margin_left = 890.0
+margin_right = 940.0
+margin_bottom = 56.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 11 )
+
+[node name="Quit" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 943.0
+margin_right = 993.0
+margin_bottom = 50.0
+size_flags_stretch_ratio = 0.1
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 15 )
+
+[node name="List" type="VBoxContainer" parent="Lobbies"]
+margin_top = 54.0
+margin_right = 994.0
+margin_bottom = 537.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.85
+
+[node name="Title" type="Label" parent="Lobbies/List"]
+margin_right = 994.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Click on Lobby to join ... "
+
+[node name="Entries" type="VBoxContainer" parent="Lobbies/List"]
+margin_top = 37.0
+margin_right = 994.0
+margin_bottom = 483.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Lobbies"]
+margin_top = 541.0
+margin_right = 994.0
+margin_bottom = 570.0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Multiplayer powered  by gotm.io"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="LobbyEntry" parent="." instance=ExtResource( 10 )]
+visible = false
+button_mask = 0
+
+[node name="PlayersList" type="Control" parent="."]
+margin_left = 16.0
+margin_top = 109.0
+margin_right = 991.0
+margin_bottom = 546.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayersList"]
+margin_left = 737.0
+margin_top = 417.0
+margin_right = 1001.0
+margin_bottom = 482.0
+custom_fonts/font = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Players" type="VBoxContainer" parent="PlayersList"]
+margin_left = -3.62158
+margin_right = 977.378
+margin_bottom = 447.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartGame" type="TextureButton" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -65.2449
+margin_top = -176.103
+margin_right = 60.7551
+margin_bottom = -65.1028
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 12 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Lobbies/Host/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="Lobbies/Host/Refresh" to="." method="_on_Refresh_pressed"]
+[connection signal="pressed" from="Lobbies/Host/CopyLink" to="." method="_on_CopyLink_pressed"]
+[connection signal="pressed" from="Lobbies/Host/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="timeout" from="Timer" to="." method="refresh"]
+[connection signal="selected" from="LobbyEntry" to="." method="_on_LobbyEntry_selected"]
+[connection signal="pressed" from="StartGame" to="." method="_on_StartGame_pressed"]
