@@ -24,7 +24,8 @@ func _ready():
 
 	my_info = {
 		"name": globals.player_name,
-		"hero": globals.curr_hero
+		"hero": globals.curr_hero,
+		"color": globals.color
 	}
 #	$Game.hide()
 #	$LobbyEntry.hide()
@@ -134,8 +135,6 @@ func _on_Refresh_pressed():
 	refresh()
 
 func refresh_player_list():
-	print_debug("player list refreshed")
-
 	$Lobbies/List/Entries.hide()
 	$PlayersList.show()
 

@@ -90,7 +90,7 @@ remote func pre_start_game(spawn_points):
 		else:
 			# Otherwise set name from peer
 			info = players[p_id]
-
+		
 		var player_scene = load("res://characters/"+info["hero"]+"/player.tscn")
 		var spawn_pos = world.get_node("spawn_points/" + str(spawn_points[p_id])).translation
 		var player = player_scene.instance()

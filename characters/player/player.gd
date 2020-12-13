@@ -20,13 +20,16 @@ var move_vec = Vector3()
 puppet var _move_vec = Vector3()
 puppet var _rotation = Vector3()
 
+var my_info = {}
+
 func set_player_info(info):
-	pass
+	my_info = info
 	
 func _ready():
 	if is_network_master():
 		cam = tpcam
 		cam.current = true
+		$Mesh/head/head.get_surface_material(0).set_shader_param("base_color", str2var(my_info["color"]))
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):

@@ -2,6 +2,7 @@ extends Node
 
 var curr_hero = "spy"
 var player_name = "PlayerName"
+var color = ""
 var mode = "singleplayer"
 
 #var players = {}

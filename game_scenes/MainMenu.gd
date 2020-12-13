@@ -9,6 +9,8 @@ func _process(_delta):
 	pass
 
 func _ready():
+	print(Vector2(5, 6) + Vector2(8, 3))
+	
 	globals.player_name = globals.save_game["player_name"]
 	$TypeSelector/PlayerNameLabel.text = globals.player_name
 
@@ -61,4 +63,10 @@ func _on_Multiplayer_pressed():
 func _on_LineEdit_text_changed(new_text):
 	globals.save_game["player_name"] = new_text
 	globals.save_data()
+
+
+
+func _on_ShadeColorPicker_color_changed(color):
+	$TypeSelector/sprite.modulate = color
+	globals.color = var2str(color)
 

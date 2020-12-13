@@ -18,13 +18,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TypeSelector" type="Control" parent="."]
-margin_left = 219.281
-margin_top = 298.905
-margin_right = 419.281
-margin_bottom = 483.905
+[node name="ShadeColorPicker" type="ColorPicker" parent="."]
+margin_left = 37.7928
+margin_top = 47.8402
+margin_right = 331.793
+margin_bottom = 577.84
+alignment = 1
+edit_alpha = false
 __meta__ = {
-"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TypeSelector" type="Control" parent="."]
+margin_left = 396.22
+margin_top = 295.84
+margin_right = 596.22
+margin_bottom = 480.84
+__meta__ = {
 "_edit_use_anchors_": false
 }
 
@@ -64,10 +74,10 @@ __meta__ = {
 }
 
 [node name="ModeSelector" type="Control" parent="."]
-margin_left = 564.847
-margin_top = 298.905
-margin_right = 925.847
-margin_bottom = 496.905
+margin_left = 667.847
+margin_top = 295.84
+margin_right = 1028.85
+margin_bottom = 493.84
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -100,10 +110,10 @@ __meta__ = {
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 219.281
-margin_top = 60.9994
-margin_right = 875.281
-margin_bottom = 245.999
+margin_left = 369.281
+margin_top = 36.8402
+margin_right = 1025.28
+margin_bottom = 221.84
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Tussle Stars"
@@ -112,6 +122,7 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
 [connection signal="pressed" from="TypeSelector/Prev" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="TypeSelector/Next" to="." method="_on_Next_pressed"]
 [connection signal="text_changed" from="TypeSelector/PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]

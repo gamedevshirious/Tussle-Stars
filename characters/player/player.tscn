@@ -1,6 +1,8 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
+[ext_resource path="res://resources/shaders/cel.shader" type="Shader" id=2]
+[ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.52393
@@ -10,24 +12,51 @@ height = 4.01187
 radius = 0.3
 height = 0.6
 
-[sub_resource type="CylinderMesh" id=3]
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+shader_param/outline_thickness = 0.02
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+next_pass = SubResource( 3 )
+shader = ExtResource( 2 )
+shader_param/use_shade = false
+shader_param/use_specular = false
+shader_param/use_rim = false
+shader_param/use_light = false
+shader_param/use_shadow = false
+shader_param/base_color = Color( 0.729412, 0.729412, 0.729412, 1 )
+shader_param/shade_color = Color( 1, 1, 1, 1 )
+shader_param/specular_tint = Color( 0.75, 0.75, 0.75, 0.75 )
+shader_param/rim_tint = Color( 0.75, 0.75, 0.75, 0.75 )
+shader_param/shade_threshold = 0.0
+shader_param/shade_softness = 0.01
+shader_param/specular_glossiness = 15.0
+shader_param/specular_threshold = 0.5
+shader_param/specular_softness = 0.1
+shader_param/rim_threshold = 0.25
+shader_param/rim_softness = 0.05
+shader_param/rim_spread = 0.5
+shader_param/shadow_threshold = 0.7
+shader_param/shadow_softness = 0.1
+
+[sub_resource type="CylinderMesh" id=5]
 top_radius = 0.4
 bottom_radius = 0.4
 height = 1.0
 
-[sub_resource type="CapsuleMesh" id=4]
-radius = 0.09
-mid_height = 0.75
-
-[sub_resource type="CapsuleMesh" id=5]
-radius = 0.09
-mid_height = 0.75
-
 [sub_resource type="CapsuleMesh" id=6]
+radius = 0.09
+mid_height = 0.75
+
+[sub_resource type="CapsuleMesh" id=7]
+radius = 0.09
+mid_height = 0.75
+
+[sub_resource type="CapsuleMesh" id=8]
 radius = 0.12
 
-[sub_resource type="Animation" id=7]
-resource_name = "hands_walk"
+[sub_resource type="Animation" id=9]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -55,7 +84,7 @@ tracks/1/keys = {
 "values": [ Vector3( -54.3971, -108.105, 143.116 ), Vector3( -76.4807, 140.702, -101.681 ), Vector3( -45.7865, 105.036, -62.6682 ), Vector3( -54.3971, -108.105, 143.116 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -107,7 +136,7 @@ tracks/3/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -159,7 +188,7 @@ tracks/3/keys = {
 "values": [ Vector3( 0, 0, -20 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, -20 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -175,7 +204,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 2.65054, 0 ), Vector3( 0, 2.66, 0 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=13]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -191,65 +220,65 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 2.65771, 0 ), Vector3( 0, 2.7, 0 ), Vector3( 0, 2.65771, 0 ) ]
 }
 
-[sub_resource type="AnimationNodeAdd2" id=12]
+[sub_resource type="AnimationNodeAdd2" id=14]
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "torso_idle"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "legs_idle"
 
-[sub_resource type="AnimationNodeBlendTree" id=15]
-nodes/Add2/node = SubResource( 12 )
+[sub_resource type="AnimationNodeBlendTree" id=17]
+nodes/Add2/node = SubResource( 14 )
 nodes/Add2/position = Vector2( 460, 100 )
-nodes/Animation/node = SubResource( 14 )
+nodes/Animation/node = SubResource( 16 )
 nodes/Animation/position = Vector2( 200, 60 )
-"nodes/Animation 2/node" = SubResource( 13 )
+"nodes/Animation 2/node" = SubResource( 15 )
 "nodes/Animation 2/position" = Vector2( 180, 200 )
 nodes/output/position = Vector2( 680, 140 )
-node_connections = [ "Add2", 0, "Animation", "Add2", 1, "Animation 2", "output", 0, "Add2" ]
+node_connections = [ "output", 0, "Add2", "Add2", 0, "Animation", "Add2", 1, "Animation 2" ]
 
-[sub_resource type="AnimationNodeAdd2" id=16]
+[sub_resource type="AnimationNodeAdd2" id=18]
 
-[sub_resource type="AnimationNodeAdd2" id=17]
-
-[sub_resource type="AnimationNodeAnimation" id=18]
-animation = "torso_walk"
-
-[sub_resource type="AnimationNodeAnimation" id=19]
-animation = "hands_walk"
+[sub_resource type="AnimationNodeAdd2" id=19]
 
 [sub_resource type="AnimationNodeAnimation" id=20]
+animation = "torso_walk"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "hands_walk"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
 animation = "legs_walk"
 
-[sub_resource type="AnimationNodeBlendTree" id=21]
+[sub_resource type="AnimationNodeBlendTree" id=23]
 graph_offset = Vector2( 0, 0.25 )
-nodes/Add2/node = SubResource( 17 )
+nodes/Add2/node = SubResource( 19 )
 nodes/Add2/position = Vector2( 300, 80 )
-"nodes/Add2 2/node" = SubResource( 16 )
+"nodes/Add2 2/node" = SubResource( 18 )
 "nodes/Add2 2/position" = Vector2( 520, 200 )
-nodes/Animation/node = SubResource( 20 )
+nodes/Animation/node = SubResource( 22 )
 nodes/Animation/position = Vector2( 80, 60 )
-"nodes/Animation 2/node" = SubResource( 18 )
+"nodes/Animation 2/node" = SubResource( 20 )
 "nodes/Animation 2/position" = Vector2( 80, 200 )
-"nodes/Animation 3/node" = SubResource( 19 )
+"nodes/Animation 3/node" = SubResource( 21 )
 "nodes/Animation 3/position" = Vector2( 80, 340 )
 nodes/output/position = Vector2( 920, 80 )
-node_connections = [ "Add2", 0, "Animation", "Add2", 1, "Animation 2", "Add2 2", 0, "Add2", "Add2 2", 1, "Animation 3", "output", 0, "Add2 2" ]
+node_connections = [ "output", 0, "Add2 2", "Add2", 0, "Animation", "Add2", 1, "Animation 2", "Add2 2", 0, "Add2", "Add2 2", 1, "Animation 3" ]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
 
-[sub_resource type="AnimationNodeStateMachine" id=24]
-states/idle/node = SubResource( 15 )
+[sub_resource type="AnimationNodeStateMachine" id=26]
+states/idle/node = SubResource( 17 )
 states/idle/position = Vector2( 358, 145 )
-states/walk/node = SubResource( 21 )
+states/walk/node = SubResource( 23 )
 states/walk/position = Vector2( 594, 157 )
-transitions = [ "idle", "walk", SubResource( 22 ), "walk", "idle", SubResource( 23 ) ]
+transitions = [ "idle", "walk", SubResource( 24 ), "walk", "idle", SubResource( 25 ) ]
 start_node = "idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=25]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=27]
 
 [node name="player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -262,7 +291,7 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0202279, 0 )
 
 [node name="TPCamera" type="Camera" parent="CameraBase"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5219, 7.03768 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5219, 3.63201 )
 fov = 90.0
 size = 15.0
 
@@ -275,7 +304,7 @@ transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, 0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.67888, 0 )
 layers = 513
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = SubResource( 4 )
 
 [node name="FPCamera" type="Camera" parent="Mesh/head/head"]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, -0.0349627, 0 )
@@ -286,8 +315,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148172, 0 )
 
 [node name="torso" type="MeshInstance" parent="Mesh/torso"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.65527, 0 )
-mesh = SubResource( 3 )
-material/0 = null
+mesh = SubResource( 5 )
+material/0 = SubResource( 4 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
 transform = Transform( 0.937981, -0.189107, -0.290568, 0.334263, 0.270954, 0.902691, -0.0919744, -0.943833, 0.317361, 5.39233e-08, 3.18349, -0.330978 )
@@ -297,16 +326,16 @@ __meta__ = {
 
 [node name="upper" type="MeshInstance" parent="Mesh/torso/left"]
 transform = Transform( 1, -9.31323e-09, 2.98023e-08, 1.11759e-08, 1, 2.70084e-08, 0, 2.98023e-08, 1, 0, 0.0358788, -0.409433 )
-mesh = SubResource( 4 )
-material/0 = null
+mesh = SubResource( 6 )
+material/0 = SubResource( 4 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/left"]
 transform = Transform( 0.95168, 1.04308e-07, -0.307091, -1.49012e-08, 1, 2.45869e-07, 0.307091, -1.49012e-07, 0.95168, -1.19209e-07, 0.0572598, -0.780809 )
 
 [node name="hand" type="MeshInstance" parent="Mesh/torso/left/elbow"]
 transform = Transform( 1, -1.49012e-08, 2.98023e-08, 0, 1, 2.23517e-08, 2.98023e-08, 0, 1, 0, -0.015347, -0.406953 )
-mesh = SubResource( 5 )
-material/0 = null
+mesh = SubResource( 7 )
+material/0 = SubResource( 4 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
 transform = Transform( 0.670253, -0.640641, 0.37462, -0.45427, 0.0450064, 0.889726, -0.586855, -0.76652, -0.260859, -5.39269e-08, 3.18839, 0.331 )
@@ -316,16 +345,16 @@ __meta__ = {
 
 [node name="upper" type="MeshInstance" parent="Mesh/torso/right"]
 transform = Transform( 1, 1.49012e-08, -2.98023e-08, 5.96046e-08, 1, 0, -2.98023e-08, 0, 1, 1.19209e-07, 2.38419e-07, -0.409 )
-mesh = SubResource( 4 )
-material/0 = null
+mesh = SubResource( 6 )
+material/0 = SubResource( 4 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/right"]
 transform = Transform( 0.95168, 0, -0.307091, 4.47035e-08, 1, 8.9407e-08, 0.307091, -2.98023e-08, 0.95168, 1.04308e-07, 0.0249093, -0.780809 )
 
 [node name="hand" type="MeshInstance" parent="Mesh/torso/right/elbow"]
 transform = Transform( 1, -5.68434e-14, -2.98023e-08, -2.84217e-14, 1, 0, 2.98023e-08, -1.42109e-14, 1, 1.49012e-07, -0.022243, -0.406953 )
-mesh = SubResource( 5 )
-material/0 = null
+mesh = SubResource( 7 )
+material/0 = SubResource( 4 )
 
 [node name="legs" type="Spatial" parent="Mesh"]
 transform = Transform( 0.998068, 0, -0.0621286, 0, 1, 0, 0.0621286, 0, 0.998068, 0, -0.0174801, 0 )
@@ -335,45 +364,48 @@ transform = Transform( 0.998787, -0.0492325, 0, 0.0492325, 0.998787, 0, 0, 0, 1,
 
 [node name="upper" type="MeshInstance" parent="Mesh/legs/right"]
 transform = Transform( 1, 0, -2.98023e-08, -2.98023e-08, -1.61119e-07, -1, -7.45058e-09, 1, -1.66707e-07, -0.0171196, -0.421865, 0.019 )
-mesh = SubResource( 6 )
-material/0 = null
+mesh = SubResource( 8 )
+material/0 = SubResource( 4 )
 
 [node name="knee" type="Position3D" parent="Mesh/legs/right"]
 transform = Transform( 0.989978, 0.141224, -3.37687e-14, -0.141224, 0.989978, -1.31909e-15, 3.3244e-14, 6.07483e-15, 1, -0.00956744, -0.908974, 0.0147068 )
 
 [node name="lower" type="MeshInstance" parent="Mesh/legs/right/knee"]
 transform = Transform( 0.999998, 1.11759e-08, -1.19209e-07, -2.38419e-07, -1.49012e-07, -0.999999, 6.70552e-08, 0.999999, -1.45286e-07, -0.000300884, -0.510887, 0.010267 )
-mesh = SubResource( 6 )
-material/0 = null
+mesh = SubResource( 8 )
+material/0 = SubResource( 4 )
 
 [node name="left" type="Position3D" parent="Mesh/legs"]
 transform = Transform( 0.998787, 0.0492325, 0, -0.0492325, 0.998787, 0, 0, 0, 1, -0.0102438, 2.23576, -0.210141 )
 
 [node name="upper" type="MeshInstance" parent="Mesh/legs/left"]
 transform = Transform( 1, 0, 0, 2.98023e-08, -1.62981e-07, -1, -7.45058e-09, 1, -1.62981e-07, 0.00711972, -0.421865, 0.019 )
-mesh = SubResource( 6 )
-material/0 = null
+mesh = SubResource( 8 )
+material/0 = SubResource( 4 )
 
 [node name="knee" type="Position3D" parent="Mesh/legs/left"]
 transform = Transform( 0.978576, 0.205885, 0, -0.205885, 0.978577, 0, 0, 0, 1, 0.0167009, -0.955345, 0.00863826 )
 
 [node name="lower" type="MeshInstance" parent="Mesh/legs/left/knee"]
 transform = Transform( 1, 1.49012e-08, 3.42727e-07, 2.38419e-07, -1.83471e-07, -1, -2.23517e-08, 1, -1.37836e-07, -0.00734228, -0.503813, 0.0110506 )
-mesh = SubResource( 6 )
-material/0 = null
+mesh = SubResource( 8 )
+material/0 = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 2
-anims/hands_walk = SubResource( 7 )
-anims/legs_idle = SubResource( 8 )
-anims/legs_walk = SubResource( 9 )
-anims/torso_idle = SubResource( 10 )
-anims/torso_walk = SubResource( 11 )
+anims/hands_walk = SubResource( 9 )
+anims/legs_idle = SubResource( 10 )
+anims/legs_walk = SubResource( 11 )
+anims/torso_idle = SubResource( 12 )
+anims/torso_walk = SubResource( 13 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 24 )
+tree_root = SubResource( 26 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 25 )
+parameters/playback = SubResource( 27 )
 parameters/idle/Add2/add_amount = 1.0
 parameters/walk/Add2/add_amount = 1.0
 "parameters/walk/Add2 2/add_amount" = 1.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 8, 0 )
