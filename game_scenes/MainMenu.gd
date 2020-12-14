@@ -9,8 +9,6 @@ func _process(_delta):
 	pass
 
 func _ready():
-	print(Vector2(5, 6) + Vector2(8, 3))
-	
 	globals.player_name = globals.save_game["player_name"]
 	$TypeSelector/PlayerNameLabel.text = globals.player_name
 

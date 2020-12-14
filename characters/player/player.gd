@@ -12,7 +12,6 @@ onready var tpcam = $CameraBase/TPCamera
 onready var fpcam = $Mesh/head/head/FPCamera
 var cam
 var zoomed_in = false
-onready var anim = $AnimationTree.get("parameters/playback")
 
 var y_velo = 0
 var move_vec = Vector3()
@@ -22,14 +21,31 @@ puppet var _rotation = Vector3()
 
 var my_info = {}
 
+var meshes = [
+	"Mesh/head/head",
+	"Mesh/torso/torso",
+	"Mesh/torso/left/upper",
+	"Mesh/torso/left/elbow/hand",
+	"Mesh/torso/right/upper",
+	"Mesh/torso/right/elbow/hand",
+	"Mesh/legs/right/upper",
+	"Mesh/legs/right/knee/lower",
+	"Mesh/legs/left/upper",
+	"Mesh/legs/left/knee/lower"
+]
+
+
 func set_player_info(info):
 	my_info = info
 	
-func _ready():
+func _ready():	
 	if is_network_master():
 		cam = tpcam
 		cam.current = true
-		$Mesh/head/head.get_surface_material(0).set_shader_param("base_color", str2var(my_info["color"]))
+	var material = $Mesh/head/head.get_surface_material(0).duplicate()
+	material.set_shader_param("base_color", str2var(my_info["color"]))
+	for node in meshes:
+		get_node(node).set_surface_material(0, material)
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
