@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=3]
 
+[sub_resource type="SphereShape" id=10]
+radius = 0.315579
+
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.52393
-height = 4.01187
+height = 1.89844
 
 [sub_resource type="SphereMesh" id=2]
 radius = 0.3
@@ -146,8 +149,12 @@ radius = 0.12
 [node name="player" type="KinematicBody"]
 script = ExtResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -1.62921e-07, 1, -1.62921e-07, 0, -1.62921e-07, -1, -1, -1.62921e-07, 2.65431e-14, 0, 2.53906, 0 )
+[node name="head" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28137, 0 )
+shape = SubResource( 10 )
+
+[node name="body" type="CollisionShape" parent="."]
+transform = Transform( -1.62921e-07, 1, -1.62921e-07, 0, -1.62921e-07, -1, -1, -1.62921e-07, 2.65431e-14, 0, 1.4755, 0 )
 shape = SubResource( 1 )
 
 [node name="CameraBase" type="Spatial" parent="."]
@@ -159,7 +166,7 @@ fov = 90.0
 size = 15.0
 
 [node name="Mesh" type="Spatial" parent="."]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, 0 )
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, -0.408068, 0 )
 
 [node name="head" type="Spatial" parent="Mesh"]
 
@@ -182,26 +189,26 @@ mesh = SubResource( 6 )
 material/0 = SubResource( 5 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.132101, 0.540137, -0.831144, 0.0847845, 0.841576, 0.533441, 0.987603, 8.79997e-08, -0.156968, -0.00324077, 3.08095, -0.3 )
+transform = Transform( 0.559736, 0.309889, 0.768546, -0.739782, 0.604758, 0.294938, -0.373386, -0.733645, 0.567755, -0.00324077, 3.08095, -0.3 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="upper" type="MeshInstance" parent="Mesh/torso/left"]
-transform = Transform( 1, -9.31323e-09, 2.98023e-08, 1.11759e-08, 1, 2.70084e-08, 0, 2.98023e-08, 1, 0, 0.0358788, -0.409433 )
+transform = Transform( 0.986868, -0.0559773, 0.15152, 0.0571064, 0.998364, -0.00310808, -0.151098, 0.0117199, 0.98845, 7.82311e-08, 0.0358784, -0.409432 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 5 )
 
-[node name="elbow" type="Position3D" parent="Mesh/torso/left"]
-transform = Transform( 0.990739, 0.122643, -0.0582691, -0.122643, 0.624125, -0.771639, -0.0582691, 0.771639, 0.633386, 0.00107758, 0.051182, -0.774029 )
+[node name="elbow" type="Position3D" parent="Mesh/torso/left/upper"]
+transform = Transform( 0.993991, 0.0828578, -0.0715254, -0.107718, 0.624378, -0.773659, -0.019445, 0.776715, 0.629551, 0.0151705, 0.0160303, -0.364251 )
 
-[node name="hand" type="MeshInstance" parent="Mesh/torso/left/elbow"]
-transform = Transform( 1, -1.49012e-08, 2.98023e-08, 0, 1, 2.23517e-08, 2.98023e-08, 0, 1, 0, -0.015347, -0.406953 )
+[node name="hand" type="MeshInstance" parent="Mesh/torso/left/upper/elbow"]
+transform = Transform( 1, -2.23517e-08, 2.98023e-08, -7.45058e-09, 1, 1.11759e-08, 8.9407e-08, 1.49012e-08, 1, -0.0156998, -0.0176644, -0.414629 )
 mesh = SubResource( 8 )
 material/0 = SubResource( 5 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
-transform = Transform( 0.0841262, 0.540137, -0.837361, -0.0539937, 0.841577, 0.537432, 0.994991, 8.79997e-08, 0.0999627, 0.00324072, 3.09105, 0.3 )
+transform = Transform( -0.328167, 0.542143, -0.773554, 0.867357, 0.497307, -0.0194252, 0.374162, -0.677323, -0.633432, 0.00324077, 3.09105, 0.3 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -211,16 +218,16 @@ transform = Transform( 1, 1.49012e-08, -2.98023e-08, 5.96046e-08, 1, 0, -2.98023
 mesh = SubResource( 7 )
 material/0 = SubResource( 5 )
 
-[node name="elbow" type="Position3D" parent="Mesh/torso/right"]
-transform = Transform( 0.996244, -0.0781035, 0.0373854, 0.0781034, 0.624125, -0.777411, 0.0373853, 0.777411, 0.627881, 0.000686482, 0.0309877, -0.787641 )
+[node name="elbow" type="Position3D" parent="Mesh/torso/right/upper"]
+transform = Transform( 0.806064, -0.562805, 0.183063, 0.511444, 0.506773, -0.693979, 0.297803, 0.653017, 0.696334, 0.000686333, 0.030988, -0.378641 )
 
-[node name="hand" type="MeshInstance" parent="Mesh/torso/right/elbow"]
-transform = Transform( 1, -5.68434e-14, -2.98023e-08, -2.84217e-14, 1, 0, 2.98023e-08, -1.42109e-14, 1, 1.49012e-07, -0.022243, -0.406953 )
+[node name="hand" type="MeshInstance" parent="Mesh/torso/right/upper/elbow"]
+transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
 mesh = SubResource( 8 )
 material/0 = SubResource( 5 )
 
 [node name="legs" type="Spatial" parent="Mesh"]
-transform = Transform( 0.998068, 0, -0.0621286, 0, 1, 0, 0.0621286, 0, 0.998068, 0, -0.0174801, 0 )
+transform = Transform( 0.998068, 0, -0.0621286, 0, 1, 0, 0.0621286, 0, 0.998068, 0, 0.23107, 0 )
 
 [node name="right" type="Position3D" parent="Mesh/legs"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0274313, 2.23576, 0.193319 )
@@ -230,27 +237,27 @@ transform = Transform( 1, 0, -2.98023e-08, -2.98023e-08, -1.61119e-07, -1, -7.45
 mesh = SubResource( 9 )
 material/0 = SubResource( 5 )
 
-[node name="knee" type="Position3D" parent="Mesh/legs/right"]
-transform = Transform( 1, 0, 0, 0, 1, -4.01612e-16, 0, 4.01612e-16, 1, -0.00956744, -0.908974, 0.0147068 )
+[node name="knee" type="Position3D" parent="Mesh/legs/right/upper"]
+transform = Transform( 1, -2.98023e-08, 0, 7.45058e-09, -1.66707e-07, 1, -2.98023e-08, -1, -1.61119e-07, 0.00755217, -0.00429313, 0.487109 )
 
-[node name="lower" type="MeshInstance" parent="Mesh/legs/right/knee"]
+[node name="lower" type="MeshInstance" parent="Mesh/legs/right/upper/knee"]
 transform = Transform( 0.999998, 1.11759e-08, -1.19209e-07, -2.38419e-07, -1.49012e-07, -0.999999, 6.70552e-08, 0.999999, -1.45286e-07, -0.000300884, -0.510887, 0.010267 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 5 )
 
 [node name="left" type="Position3D" parent="Mesh/legs"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0102438, 2.23576, -0.210141 )
+transform = Transform( 0.143684, -0.988187, 0.0533046, 0.988187, 0.140366, -0.0615133, 0.0533046, 0.0615134, 0.996682, -0.0102438, 2.23576, -0.210141 )
 
 [node name="upper" type="MeshInstance" parent="Mesh/legs/left"]
 transform = Transform( 1, 0, 0, 2.98023e-08, -1.62981e-07, -1, -7.45058e-09, 1, -1.62981e-07, 0.00711972, -0.421865, 0.019 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 5 )
 
-[node name="knee" type="Position3D" parent="Mesh/legs/left"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0167009, -0.955345, 0.00863826 )
+[node name="knee" type="Position3D" parent="Mesh/legs/left/upper"]
+transform = Transform( -0.118971, 0.990452, 0.0696545, 0.0696547, -0.0616543, 0.995664, 0.990451, 0.123307, -0.0616545, 0.00958109, -0.0103616, 0.53348 )
 
-[node name="lower" type="MeshInstance" parent="Mesh/legs/left/knee"]
-transform = Transform( 1, 1.49012e-08, 3.42727e-07, 2.38419e-07, -1.83471e-07, -1, -2.23517e-08, 1, -1.37836e-07, -0.00734228, -0.503813, 0.0110506 )
+[node name="lower" type="MeshInstance" parent="Mesh/legs/left/upper/knee"]
+transform = Transform( 1, 1.49012e-08, 2.98023e-07, 2.38419e-07, -1.86265e-07, -1, -1.49012e-08, 1, -1.41561e-07, -0.00331423, -0.518717, 0.0107999 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 5 )
 

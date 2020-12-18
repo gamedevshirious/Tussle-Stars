@@ -25,13 +25,13 @@ var meshes = [
 	"Mesh/head/head",
 	"Mesh/torso/torso",
 	"Mesh/torso/left/upper",
-	"Mesh/torso/left/elbow/hand",
+	"Mesh/torso/left/upper/elbow/hand",
 	"Mesh/torso/right/upper",
-	"Mesh/torso/right/elbow/hand",
+	"Mesh/torso/right/upper/elbow/hand",
 	"Mesh/legs/right/upper",
-	"Mesh/legs/right/knee/lower",
+	"Mesh/legs/right/upper/knee/lower",
 	"Mesh/legs/left/upper",
-	"Mesh/legs/left/knee/lower"
+	"Mesh/legs/left/upper/knee/lower"
 ]
 
 
