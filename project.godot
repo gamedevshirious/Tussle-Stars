@@ -72,6 +72,11 @@ Gotm="*res://gotm/Gotm.gd"
 globals="*res://resources/globals.gd"
 gamestate="*res://multiplayer/gamestate.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [input]
 
 ui_left={
@@ -120,5 +125,5 @@ jump={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.529412, 0.807843, 0.921569, 1 )
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

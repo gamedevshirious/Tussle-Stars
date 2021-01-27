@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game_scenes/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://resources/sprites/shapes/circle.png" type="Texture" id=2]
 [ext_resource path="res://resources/themes/default.tres" type="Theme" id=3]
-[ext_resource path="res://multiplayer/lobby/resources/fonts/Pacifico.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://resources/fonts/perfect-dark-brk/pdark.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 100
-outline_size = 5
-outline_color = Color( 1, 1, 0, 1 )
+size = 50
+outline_size = 2
+outline_color = Color( 0, 0.929412, 1, 1 )
 font_data = ExtResource( 4 )
 
 [node name="MainMenu" type="Control"]
@@ -19,53 +19,29 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" type="ColorPicker" parent="."]
-margin_left = 61.7928
-margin_top = 71.8402
-margin_right = 355.793
-margin_bottom = 601.84
+margin_left = 66.22
+margin_top = 83.8402
+margin_right = 360.22
+margin_bottom = 613.84
 alignment = 1
 edit_alpha = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TypeSelector" type="Control" parent="."]
-margin_left = 396.22
-margin_top = 295.84
-margin_right = 596.22
-margin_bottom = 480.84
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="player" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.994319, 0, 0.106437, 0, 1, 0, -0.106437, 0, -0.994319, 0, 0, 0 )
+script = null
 
-[node name="sprite" type="Sprite" parent="TypeSelector"]
-position = Vector2( 100.678, 35 )
-texture = ExtResource( 2 )
+[node name="Camera" type="Camera" parent="player"]
+transform = Transform( -0.99545, 0, -0.0952895, 0, 1, 0, 0.0952895, 0, -0.99545, 1.68208, 2.50092, -5.57442 )
+current = true
 
-[node name="Prev" type="Button" parent="TypeSelector"]
-margin_top = 20.0
-margin_right = 50.0
-margin_bottom = 50.0
-text = "<"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Next" type="Button" parent="TypeSelector"]
-margin_left = 150.0
-margin_top = 20.0
-margin_right = 200.0
-margin_bottom = 50.0
-text = ">"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerNameLabel" type="LineEdit" parent="TypeSelector"]
-margin_left = 1.0
-margin_top = 84.0
-margin_right = 201.0
-margin_bottom = 121.0
+[node name="PlayerNameLabel" type="LineEdit" parent="."]
+margin_left = 66.22
+margin_top = 28.84
+margin_right = 360.22
+margin_bottom = 65.84
 placeholder_text = "Player Name"
 caret_blink = true
 caret_blink_speed = 0.5
@@ -73,36 +49,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ModeSelector" type="Control" parent="."]
-margin_left = 667.847
-margin_top = 295.84
-margin_right = 1028.85
-margin_bottom = 493.84
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="SinglePlayer" type="Button" parent="ModeSelector"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -130.0
-margin_right = 130.0
-margin_bottom = 75.0
-text = "Dojo"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Multiplayer" type="Button" parent="ModeSelector"]
+[node name="Play" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -128.0
-margin_top = -75.0
-margin_right = 128.0
-text = "Arena"
+margin_left = 726.22
+margin_top = 474.84
+margin_right = 982.22
+margin_bottom = 549.84
+text = "Play!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -110,10 +66,10 @@ __meta__ = {
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 369.281
-margin_top = 36.8402
-margin_right = 1025.28
-margin_bottom = 221.84
+margin_left = 291.793
+margin_top = 28.84
+margin_right = 1161.79
+margin_bottom = 209.84
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Tussle Stars"
@@ -123,8 +79,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
-[connection signal="pressed" from="TypeSelector/Prev" to="." method="_on_Prev_pressed"]
-[connection signal="pressed" from="TypeSelector/Next" to="." method="_on_Next_pressed"]
-[connection signal="text_changed" from="TypeSelector/PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
-[connection signal="pressed" from="ModeSelector/SinglePlayer" to="." method="_on_SinglePlayer_pressed"]
-[connection signal="pressed" from="ModeSelector/Multiplayer" to="." method="_on_Multiplayer_pressed"]
+[connection signal="text_changed" from="PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
+[connection signal="pressed" from="Play" to="." method="_on_Multiplayer_pressed"]
