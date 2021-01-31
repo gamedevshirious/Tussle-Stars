@@ -23,6 +23,8 @@ func _ready():
 	globals.player_name = globals.save_game["player_name"]
 	$PlayerNameLabel.text = globals.player_name
 
+	$player.get_node("HUD").queue_free()
+	
 	dir = Directory.new()
 	load_shape()
 

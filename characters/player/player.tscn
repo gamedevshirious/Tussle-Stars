@@ -1,7 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
+[ext_resource path="res://resources/sprites/buttons/right.png" type="Texture" id=2]
 [ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=3]
+[ext_resource path="res://resources/sprites/buttons/up.png" type="Texture" id=4]
+[ext_resource path="res://resources/sprites/buttons/down.png" type="Texture" id=5]
+[ext_resource path="res://resources/sprites/buttons/left.png" type="Texture" id=6]
+[ext_resource path="res://resources/sprites/buttons/shoot.png" type="Texture" id=7]
+[ext_resource path="res://characters/player/MiniMapCamera.gd" type="Script" id=8]
 
 [sub_resource type="SphereShape" id=1]
 radius = 0.315579
@@ -149,6 +155,57 @@ radius = 0.12
 [node name="player" type="KinematicBody"]
 script = ExtResource( 1 )
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="up" type="TouchScreenButton" parent="HUD"]
+position = Vector2( 150, 324 )
+normal = ExtResource( 4 )
+action = "ui_up"
+
+[node name="right" type="TouchScreenButton" parent="HUD"]
+position = Vector2( 230, 404 )
+normal = ExtResource( 2 )
+action = "ui_right"
+
+[node name="left" type="TouchScreenButton" parent="HUD"]
+position = Vector2( 69, 404 )
+normal = ExtResource( 6 )
+action = "ui_left"
+
+[node name="down" type="TouchScreenButton" parent="HUD"]
+position = Vector2( 150, 484 )
+normal = ExtResource( 5 )
+action = "ui_down"
+
+[node name="shoot" type="TouchScreenButton" parent="HUD"]
+position = Vector2( 786, 404 )
+normal = ExtResource( 7 )
+action = "shoot"
+
+[node name="ViewportContainer" type="ViewportContainer" parent="HUD"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -280.0
+margin_top = 20.0
+margin_right = -30.0
+margin_bottom = 190.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="HUD/ViewportContainer"]
+size = Vector2( 250, 170 )
+transparent_bg = true
+handle_input_locally = false
+usage = 3
+render_target_update_mode = 0
+
+[node name="Camera" type="Camera" parent="HUD/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.405827, 0.91395, 0, -0.91395, 0.405827, 0, 15, 5.00307 )
+current = true
+script = ExtResource( 8 )
+
 [node name="head" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28137, 0 )
 shape = SubResource( 1 )
@@ -161,7 +218,7 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0202279, 0 )
 
 [node name="TPCamera" type="Camera" parent="CameraBase"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5219, 3.63201 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19512, 5.04024 )
 fov = 90.0
 size = 15.0
 
@@ -189,7 +246,7 @@ mesh = SubResource( 7 )
 material/0 = SubResource( 6 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.0938857, -0.992961, 0.0722024, 0.609619, -9.93196e-08, 0.792693, -0.787114, 0.118439, 0.605328, -0.00324077, 3.09177, -0.3 )
+transform = Transform( -0.0692312, -0.0254587, -0.997274, 0.957476, -0.282358, -0.0592605, -0.280079, -0.958971, 0.0439239, -0.00324078, 3.06142, -0.26327 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -200,12 +257,15 @@ mesh = SubResource( 8 )
 material/0 = SubResource( 6 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/left/upper"]
-transform = Transform( 0.801902, -0.516431, 0.30042, 0.399115, 0.837219, 0.373857, -0.444589, -0.179895, 0.877484, 0.0151708, 0.0160301, -0.364252 )
+transform = Transform( 0.42335, -0.89989, -0.104758, 0.905882, 0.422041, 0.0354586, 0.0123033, -0.10991, 0.993866, -0.0146487, 0.0182844, -0.36675 )
 
 [node name="hand" type="MeshInstance" parent="Mesh/torso/left/upper/elbow"]
 transform = Transform( 1, -2.23517e-08, 2.98023e-08, -7.45058e-09, 1, 1.11759e-08, 8.9407e-08, 1.49012e-08, 1, -0.0156998, -0.0176644, -0.414629 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 6 )
+
+[node name="Muzzle" type="Position3D" parent="Mesh/torso/left/upper/elbow/hand"]
+transform = Transform( 1, -3.42261e-08, -9.31323e-10, 2.61643e-08, 1, -1.86265e-09, -9.31323e-10, 0, 1, -0.00209677, -0.0052557, -0.433681 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
 transform = Transform( -0.169102, 0.974944, 0.144529, 0.649713, -1.05852e-07, 0.760179, 0.741132, 0.22245, -0.633434, 0.00324077, 3.13388, 0.3 )

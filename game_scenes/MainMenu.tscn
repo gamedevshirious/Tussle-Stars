@@ -19,10 +19,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" type="ColorPicker" parent="."]
-margin_left = 66.22
-margin_top = 83.8402
-margin_right = 360.22
-margin_bottom = 613.84
+margin_left = 86.22
+margin_top = 103.84
+margin_right = 380.22
+margin_bottom = 633.84
 alignment = 1
 edit_alpha = false
 __meta__ = {

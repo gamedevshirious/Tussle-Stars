@@ -1,7 +1,7 @@
 extends KinematicBody
 
 const MOVE_SPEED = 12
-const JUMP_FORCE = 30
+const JUMP_FORCE = 50
 const GRAVITY = 0.98
 const MAX_FALL_SPEED = 30
 
@@ -42,6 +42,8 @@ func _ready():
 	if is_network_master():
 		cam = tpcam
 		cam.current = true
+	else:
+		$HUD.queue_free()
 	var material = $Mesh/head/head.get_surface_material(0).duplicate()
 	material.set_shader_param("base_color", str2var(my_info["color"]))
 	for node in meshes:
@@ -54,11 +56,12 @@ func _input(event):
 			cam = fpcam if cam != fpcam else tpcam
 			cam.current = true
 			zoomed_in = false if cam != fpcam else true
-		if event is InputEventMouseMotion:
+		if event is InputEventMouseMotion or event is InputEventScreenDrag:
 			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
 			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, 0, 30)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
 	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
 			rotation_degrees.y -= event.relative.x * H_LOOK_SENS
+			
 
 func _process(_delta):
 	move()
@@ -91,7 +94,10 @@ func move():
 			y_velo = -0.1
 		if y_velo < -MAX_FALL_SPEED:
 			y_velo = -MAX_FALL_SPEED
-
+		
+		if Input.is_action_just_pressed("shoot"):
+			rpc("shoot")
+		
 		if Input.is_action_just_pressed("focus"):
 			if cam.name == "TPCamera":
 				if not zoomed_in:
@@ -106,6 +112,12 @@ func move():
 	else:
 		translation = _move_vec
 		rotation_degrees = _rotation
+
+sync func shoot():
+	var b = preload("res://characters/3D/gun/bullet/Bullet.tscn").instance()
+	get_tree().get_root().add_child(b)
+	b.transform = $Mesh/torso/left/upper/elbow/hand/Muzzle.global_transform
+	b.velocity = -b.transform.basis.z * b.bullet_velocity
 
 func play_anim(name):
 	pass
