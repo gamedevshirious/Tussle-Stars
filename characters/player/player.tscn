@@ -183,7 +183,6 @@ normal = ExtResource( 7 )
 action = "shoot"
 
 [node name="ViewportContainer" type="ViewportContainer" parent="HUD"]
-visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -280.0
@@ -199,7 +198,7 @@ size = Vector2( 250, 170 )
 transparent_bg = true
 handle_input_locally = false
 usage = 3
-render_target_update_mode = 0
+render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="HUD/ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 0.405827, 0.91395, 0, -0.91395, 0.405827, 0, 15, 5.00307 )

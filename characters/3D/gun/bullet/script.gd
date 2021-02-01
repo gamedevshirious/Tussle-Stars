@@ -16,4 +16,5 @@ func _physics_process(delta):
 		queue_free()
 		timer = 0
 	var collision = move_and_collide(velocity)
-	
+	if collision != null:
+		queue_free()
