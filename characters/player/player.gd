@@ -38,7 +38,8 @@ var meshes = [
 func set_player_info(info):
 	my_info = info
 	
-func _ready():	
+func _ready():
+	$AnimationPlayer.play("idle")
 	if is_network_master():
 		cam = tpcam
 		cam.current = true
