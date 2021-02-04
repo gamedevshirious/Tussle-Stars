@@ -19,6 +19,9 @@ var meshes = [
 	"Mesh/legs/left/upper/knee/lower"
 ]
 
+func _process(delta):
+	$player.rotate_y(.5 * delta)
+
 func _ready():
 	globals.player_name = globals.save_game["player_name"]
 	$PlayerNameLabel.text = globals.player_name

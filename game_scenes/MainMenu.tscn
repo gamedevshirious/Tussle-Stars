@@ -1,9 +1,35 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game_scenes/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://resources/shaders/cel.shader" type="Shader" id=2]
 [ext_resource path="res://resources/themes/default.tres" type="Theme" id=3]
 [ext_resource path="res://resources/fonts/perfect-dark-brk/pdark.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=5]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 2 )
+shader_param/use_shade = true
+shader_param/use_specular = false
+shader_param/use_rim = false
+shader_param/use_light = false
+shader_param/use_shadow = false
+shader_param/base_color = Color( 0.376471, 0.984314, 0.956863, 1 )
+shader_param/shade_color = Color( 0.313726, 0.239216, 0.239216, 1 )
+shader_param/specular_tint = Color( 0.75, 0.75, 0.75, 0.75 )
+shader_param/rim_tint = Color( 0.75, 0.75, 0.75, 0.75 )
+shader_param/shade_threshold = 0.0
+shader_param/shade_softness = 0.01
+shader_param/specular_glossiness = 1.0
+shader_param/specular_threshold = 0.5
+shader_param/specular_softness = 0.1
+shader_param/rim_threshold = 0.25
+shader_param/rim_softness = 0.0
+shader_param/rim_spread = 0.5
+shader_param/shadow_threshold = 0.7
+shader_param/shadow_softness = 0.1
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -19,29 +45,43 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" type="ColorPicker" parent="."]
-margin_left = 102.22
-margin_top = 119.84
-margin_right = 396.22
-margin_bottom = 649.84
+margin_left = 31.0
+margin_top = 107.0
+margin_right = 370.0
+margin_bottom = 569.0
 alignment = 1
 edit_alpha = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="player" parent="." instance=ExtResource( 5 )]
-transform = Transform( -0.994319, 0, 0.106437, 0, 1, 0, -0.106437, 0, -0.994319, 0, 0, 0 )
-script = null
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( -1, 0, -3.25842e-07, 0, 1, 0, 3.25842e-07, 0, -1, -0.895422, -2.70272, -8.36488 )
+width = 50.0
+height = 22.3525
+depth = 0.1
+material = SubResource( 2 )
 
-[node name="Camera" type="Camera" parent="player"]
-transform = Transform( -0.99545, 0, -0.0952895, 0, 1, 0, 0.0952895, 0, -0.99545, 1.68208, 2.50092, -5.57442 )
+[node name="CSGCylinder" type="CSGCylinder" parent="."]
+transform = Transform( -0.977781, 0.0292738, 0.207584, 0.0292737, -0.961435, 0.273471, 0.207584, 0.273471, 0.939215, -0.0283727, -1, -1.25115 )
+radius = 2.32894
+sides = 64
+smooth_faces = false
+material = SubResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.998441, -0.0144478, 0.0539201, 0.00235122, 0.975953, 0.217968, -0.0557726, -0.217501, 0.974465, 0.108524, 3.16, 3.22114 )
 current = true
 
+[node name="player" parent="." instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -0.844639 )
+script = null
+
 [node name="PlayerNameLabel" type="LineEdit" parent="."]
-margin_left = 66.22
-margin_top = 28.84
-margin_right = 360.22
-margin_bottom = 65.84
+margin_left = 408.0
+margin_top = 536.267
+margin_right = 702.0
+margin_bottom = 573.267
 placeholder_text = "Player Name"
 caret_blink = true
 caret_blink_speed = 0.5
@@ -54,10 +94,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 726.22
-margin_top = 474.84
-margin_right = 982.22
-margin_bottom = 549.84
+margin_left = 744.0
+margin_top = 489.242
+margin_right = 1000.0
+margin_bottom = 564.242
 text = "Play!"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,10 +106,10 @@ __meta__ = {
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 291.793
-margin_top = 28.84
-margin_right = 1161.79
-margin_bottom = 209.84
+margin_left = 69.0
+margin_top = -44.4974
+margin_right = 938.997
+margin_bottom = 136.503
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Tussle Stars"
