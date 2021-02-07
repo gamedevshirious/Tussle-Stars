@@ -1,16 +1,17 @@
 extends Node
 
-var curr_hero = "spy"
+var curr_hero = "kindler"
 var player_name = "PlayerName"
 var color = "ffffff"
 var mode = "singleplayer"
 
 #var players = {}
 
-var SAVFILE = "res://save_game.json"
+var SAVFILE = "user://save_game.json"
 
 var save_game = {
-	"player_name": "temp"
+	"player_name": "temp",
+	"color": "ffffff"
 }
 
 func _ready():
@@ -32,4 +33,16 @@ func load_data():
 	save_game = parse_json(save_file.get_line())
 	###
 	player_name = save_game["player_name"]
+	color = save_game["color"]
+
+
+var heroes = {
+	"kindler": {
+		"description": "Fire in palms, more than in heart",
+		"scripts": {
+			"movement": "default",
+			"abilities": "kindler"
+		}
+	}
+}
 

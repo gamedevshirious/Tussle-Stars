@@ -233,22 +233,22 @@ tracks/1/keys = {
 "values": [ Vector3( 4.42837, 34.0321, 9.2974 ), Vector3( -7.48924, 33.4829, 29.5349 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "torso_idle"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "walk"
 
-[sub_resource type="AnimationNodeAdd2" id=13]
+[sub_resource type="AnimationNodeAdd2" id=15]
 
 [sub_resource type="AnimationNodeBlendTree" id=16]
 graph_offset = Vector2( 0, 50.75 )
-nodes/Animation/node = SubResource( 15 )
+nodes/Animation/node = SubResource( 14 )
 nodes/Animation/position = Vector2( 123, 209 )
-"nodes/Animation 2/node" = SubResource( 14 )
+"nodes/Animation 2/node" = SubResource( 13 )
 "nodes/Animation 2/position" = Vector2( 120, 80 )
 nodes/output/position = Vector2( 680, 120 )
-nodes/walk/node = SubResource( 13 )
+nodes/walk/node = SubResource( 15 )
 nodes/walk/position = Vector2( 360, 120 )
 node_connections = [ "output", 0, "walk", "walk", 0, "Animation 2", "walk", 1, "Animation" ]
 
@@ -327,7 +327,7 @@ transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, -0.4
 [node name="head" type="Spatial" parent="Mesh"]
 
 [node name="head" type="MeshInstance" parent="Mesh/head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6772, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.67659, 0 )
 layers = 513
 mesh = SubResource( 3 )
 material/0 = SubResource( 6 )
@@ -340,12 +340,12 @@ fov = 90.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148172, 0 )
 
 [node name="torso" type="MeshInstance" parent="Mesh/torso"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.69568, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6969, 0 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 6 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( 0.854095, 0.200643, -0.479854, 0.378282, 0.393553, 0.837864, 0.35696, -0.897138, 0.260232, -0.00324078, 3.06142, -0.26327 )
+transform = Transform( 0.854054, 0.200628, -0.479934, 0.377056, 0.39683, 0.83687, 0.358352, -0.895696, 0.263266, -0.00324078, 3.06142, -0.26327 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -370,7 +370,7 @@ material/0 = SubResource( 6 )
 transform = Transform( 1, -3.42261e-08, -9.31323e-10, 2.61643e-08, 1, -1.86265e-09, -9.31323e-10, 0, 1, -0.00209677, -0.0052557, -0.433681 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.457247, 0.644628, -0.612682, 0.152166, 0.735467, 0.660253, 0.876225, 0.20867, -0.43438, 0.00324077, 3.13388, 0.3 )
+transform = Transform( -0.457235, 0.644599, -0.612722, 0.155194, 0.736219, 0.658708, 0.8757, 0.206094, -0.436663, 0.00324077, 3.13388, 0.3 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -443,7 +443,6 @@ material/0 = SubResource( 6 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 8, 0 )
-shadow_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/torso_idle = SubResource( 11 )
@@ -454,3 +453,18 @@ tree_root = SubResource( 16 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/walk/add_amount = 0.0
+
+[node name="scripts" type="Node" parent="."]
+
+[node name="movement" type="Node" parent="scripts"]
+
+[node name="abilities" type="Node" parent="scripts"]
+
+[node name="StatusLabel" type="Label" parent="."]
+margin_left = 769.0
+margin_top = 564.0
+margin_right = 994.0
+margin_bottom = 588.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

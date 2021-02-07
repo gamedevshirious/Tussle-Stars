@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game_scenes/helper/MyColorPicker/MyColorPicker.gd" type="Script" id=1]
+
+[node name="ShadeColorPicker" type="ColorPicker"]
+margin_left = 51.3459
+margin_top = 86.7186
+margin_right = 390.346
+margin_bottom = 524.719
+rect_scale = Vector2( 0.7, 1 )
+alignment = 1
+edit_alpha = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

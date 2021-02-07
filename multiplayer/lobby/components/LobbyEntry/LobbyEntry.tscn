@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://multiplayer/lobby/components/LobbyEntry/LobbyEntry.gd" type="Script" id=1]
 [ext_resource path="res://multiplayer/lobby/resources/fonts/RobotoLight-24px.tres" type="DynamicFont" id=2]
-[ext_resource path="res://multiplayer/lobby/resources/fonts/Pacifico.ttf" type="DynamicFontData" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 3 )
 
 [node name="LobbyEntry" type="Button"]
 anchor_right = 1.0
@@ -14,7 +9,6 @@ margin_left = 10.0
 margin_top = 45.0
 margin_right = -12.0
 margin_bottom = 121.0
-custom_fonts/font = SubResource( 1 )
 text = "Name"
 align = 0
 script = ExtResource( 1 )

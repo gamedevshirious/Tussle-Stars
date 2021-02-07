@@ -37,19 +37,39 @@ var meshes = [
 
 func set_player_info(info):
 	my_info = info
-	
+
 func _ready():
-	$AnimationPlayer.play("idle")
+#	$AnimationPlayer.play("idle")
 	if is_network_master():
 		cam = tpcam
 		cam.current = true
+		select_script()
 	else:
 		$HUD.queue_free()
+		$CameraBase.queue_free()
+		
+	var rgb = my_info["color"].split(',') 
+
 	var material = $Mesh/head/head.get_surface_material(0).duplicate()
-	material.set_shader_param("base_color", str2var(my_info["color"]))
+	material.set_shader_param("base_color", Color(rgb[0], rgb[1], rgb[2], rgb[3]))
 	for node in meshes:
 		get_node(node).set_surface_material(0, material)
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func select_script():
+	print(my_info["hero"])
+	print(globals.heroes)
+	if (globals.heroes[my_info["hero"]]["scripts"]["movement"] == "default"):
+		$scripts/movement.set_script(load("res://characters/player/movement.gd"))
+	else:
+		$scripts/movement.set_script(load("res://characters/heroes/"+my_info["hero"]+"/movement.gd"))
+
+	if (globals.heroes[my_info["hero"]]["scripts"]["abilities"] == "default"):
+		$scripts/abilities.set_script(load("res://characters/player/abilities.gd"))
+	else:
+		$scripts/abilities.set_script(load("res://characters/heroes/"+my_info["hero"]+"/abilities.gd"))
+
+
 
 func _input(event):
 	if is_network_master():
@@ -62,76 +82,30 @@ func _input(event):
 			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, 0, 30)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
 	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
 			rotation_degrees.y -= event.relative.x * H_LOOK_SENS
-			
+
 
 func _process(_delta):
 	move()
 #	$CameraBase/Crosshair.visible = zoomed_in
 func move():
 	if is_network_master():
-		move_vec = Vector3()
-		if Input.is_action_pressed("ui_up"):
-			move_vec.z -= 1
-		if Input.is_action_pressed("ui_down"):
-			move_vec.z += 1
-		if Input.is_action_pressed("ui_right"):
-			move_vec.x += 1
-		if Input.is_action_pressed("ui_left"):
-			move_vec.x -= 1
-		
-		print(move_vec.z/10)
-		if abs(move_vec.z) > 1:
-			$AnimationTree.set("parameters/walk/add_amount",  move_vec.z/10)
-		else:
-			$AnimationTree.set("parameters/walk/add_amount",  0)
-		
-		move_vec = move_vec.normalized()
-		move_vec = move_vec.rotated(Vector3(0, 1, 0), rotation.y)
-		move_vec *= MOVE_SPEED
-		move_vec.y = y_velo
-		
-		
-		
-		move_vec = move_and_slide(move_vec, Vector3(0, 1, 0))
+		$scripts/movement.move(self)
 
-		var grounded = is_on_floor()
-		y_velo -= GRAVITY
-		var just_jumped = false
-		if grounded and Input.is_action_just_pressed("jump"):
-			just_jumped = true
-			y_velo = JUMP_FORCE
-			
-		if grounded and y_velo <= 0:
-			y_velo = -0.1
-		if y_velo < -MAX_FALL_SPEED:
-			y_velo = -MAX_FALL_SPEED
-		
 		if Input.is_action_just_pressed("shoot"):
-			rpc("shoot")
-		
-		if Input.is_action_just_pressed("focus"):
-			if cam.name == "TPCamera":
-				if not zoomed_in:
-					cam.translation = Vector3(3, 4, 4)
-					zoomed_in = true
-				else:
-					cam.translation = Vector3(0, 4, 8)
-					zoomed_in = false
-		
+			rpc("quick")
+
 		rset("_move_vec", translation)
 		rset("_rotation", rotation_degrees)
 	else:
 		translation = _move_vec
 		rotation_degrees = _rotation
 
-sync func shoot():
-	var b = preload("res://characters/3D/gun/bullet/Bullet.tscn").instance()
-	get_tree().get_root().add_child(b)
-	b.transform = $Mesh/torso/left/upper/elbow/hand/Muzzle.global_transform
-	b.velocity = -b.transform.basis.z * b.bullet_velocity
+sync func quick():
+	$StatusLabel.text = "shoot"
+	$scripts/abilities.quick(self)
 
-func play_anim(name):
-	pass
+#func play_anim(name):
+#	pass
 #	if anim.get_current_node() == name:
 #		return
 #	anim.travel(name)

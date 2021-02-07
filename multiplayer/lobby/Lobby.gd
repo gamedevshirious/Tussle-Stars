@@ -27,6 +27,9 @@ func _ready():
 		"hero": globals.curr_hero,
 		"color": globals.color
 	}
+
+	print(my_info)
+
 #	$Game.hide()
 #	$LobbyEntry.hide()
 	refresh()
@@ -64,6 +67,7 @@ func _on_LobbyEntry_selected(lobby):
 		$Lobbies/Host/Name.text = "Tell host to start ... reeeeeee"
 
 		gamestate.join_game(Gotm.lobby.host.address, my_info)
+		$CSGBox.queue_free()
 #		join()
 #		emit_signal("joined")
 	else:
@@ -95,7 +99,9 @@ func _on_Host_pressed():
 
 	gamestate.host_game(my_info)
 	refresh_player_list()
-
+	
+	
+	
 #	host()
 #	get_parent().host()
 #	emit_signal("hosted")
@@ -110,7 +116,7 @@ func refresh():
 			child.queue_free()
 
 		var lobbies = yield(_fetch.first(5), "completed")
-	
+
 		for i in range(lobbies.size()):
 			var lobby = lobbies[i]
 			var node = $LobbyEntry.duplicate()
@@ -186,6 +192,7 @@ func _on_StartGame_pressed():
 	Gotm.lobby.hidden = true
 #	Gotm.lobby.leave()
 	gamestate.begin_game()
+	$CSGBox.queue_free()
 
 
 func _on_Quit_pressed():
