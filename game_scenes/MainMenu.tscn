@@ -42,21 +42,21 @@ shader_param/shadow_softness = 0.1
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=13]
+[sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=11]
+[sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="StyleBoxEmpty" id=14]
+[sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="StyleBoxEmpty" id=8]
 
-[sub_resource type="StyleBoxEmpty" id=12]
+[sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=10]
 size = 32
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=11]
 size = 32
 use_filter = true
 font_data = ExtResource( 4 )
@@ -69,10 +69,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 30.2808
-margin_top = 490.692
-margin_right = 369.281
-margin_bottom = 952.692
+margin_left = 34.2808
+margin_top = 494.692
+margin_right = 373.281
+margin_bottom = 956.692
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -117,12 +117,12 @@ margin_left = 839.892
 margin_top = 513.027
 margin_right = 948.892
 margin_bottom = 545.027
-custom_styles/hover = SubResource( 13 )
-custom_styles/pressed = SubResource( 11 )
-custom_styles/focus = SubResource( 14 )
-custom_styles/disabled = SubResource( 15 )
-custom_styles/normal = SubResource( 12 )
-custom_fonts/font = SubResource( 8 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
 text = "Play."
 __meta__ = {
@@ -137,7 +137,7 @@ margin_left = -43.4932
 margin_top = -21.4998
 margin_right = 375.507
 margin_bottom = 79.5002
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0.454902, 0.403922, 0.376471, 1 )
 text = "Tussle Stars"
 align = 1

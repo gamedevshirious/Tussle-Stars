@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game_scenes/levels/World.gd" type="Script" id=1]
 [ext_resource path="res://characters/3D/ball/Ball.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/shaders/cel.shader" type="Shader" id=3]
+[ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.196078, 0.196078, 0.196078, 1 )
@@ -9,7 +11,35 @@ albedo_color = Color( 0.196078, 0.196078, 0.196078, 1 )
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
 
-[sub_resource type="ConcavePolygonShape" id=3]
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+shader_param/outline_thickness = 0.01
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+next_pass = SubResource( 3 )
+shader = ExtResource( 3 )
+shader_param/use_shade = false
+shader_param/use_specular = false
+shader_param/use_rim = false
+shader_param/use_light = false
+shader_param/use_shadow = true
+shader_param/base_color = Color( 0.501961, 0.490196, 0.337255, 1 )
+shader_param/shade_color = Color( 1, 1, 1, 1 )
+shader_param/specular_tint = Color( 0.482353, 0.407843, 0.407843, 0.74902 )
+shader_param/rim_tint = Color( 0.75, 0.75, 0.75, 0.75 )
+shader_param/shade_threshold = 0.0
+shader_param/shade_softness = 0.01
+shader_param/specular_glossiness = 15.0
+shader_param/specular_threshold = 0.5
+shader_param/specular_softness = 0.1
+shader_param/rim_threshold = 0.25
+shader_param/rim_softness = 0.05
+shader_param/rim_spread = 0.5
+shader_param/shadow_threshold = 0.7
+shader_param/shadow_softness = 0.1
+
+[sub_resource type="ConcavePolygonShape" id=5]
 data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
 
 [node name="World" type="Spatial"]
@@ -24,42 +54,42 @@ __meta__ = {
 [node name="Floor1" type="MeshInstance" parent="floor"]
 transform = Transform( 5, 0, 0, 0, 0.5, 0, 0, 0, 5, 0, 13.0378, 0 )
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = SubResource( 4 )
 
 [node name="StaticBody" type="StaticBody" parent="floor/Floor1"]
 
 [node name="CollisionShape" type="CollisionShape" parent="floor/Floor1/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="Floor2" type="MeshInstance" parent="floor"]
 transform = Transform( 50, 0, 0, 0, 0.5, 0, 0, 0, 50, -4.35276, -0.436359, 7.38223 )
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = SubResource( 4 )
 
 [node name="StaticBody" type="StaticBody" parent="floor/Floor2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="floor/Floor2/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="Floor3" type="MeshInstance" parent="floor"]
 transform = Transform( 5, 0, 0, 0, 0.5, 0, 0, 0, 5, 11.9437, 13.0378, 7.09215 )
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = SubResource( 4 )
 
 [node name="StaticBody" type="StaticBody" parent="floor/Floor3"]
 
 [node name="CollisionShape" type="CollisionShape" parent="floor/Floor3/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="Floor4" type="MeshInstance" parent="floor"]
 transform = Transform( 5, 0, 0, 0, 0.5, 0, 0, 0, 5, -12.6229, 10.1926, 8.66711 )
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = SubResource( 4 )
 
 [node name="StaticBody" type="StaticBody" parent="floor/Floor4"]
 
 [node name="CollisionShape" type="CollisionShape" parent="floor/Floor4/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="objects" type="Spatial" parent="."]
 
@@ -85,3 +115,5 @@ transform = Transform( 1, 0, 0, 0, 0.99918, 0.0404806, 0, -0.0404806, 0.99918, 1
 
 [node name="4" type="Position3D" parent="spawn_points"]
 transform = Transform( 1, 0, 0, 0, 0.99918, 0.0404806, 0, -0.0404806, 0.99918, -5.67589, 16.2529, -17.8079 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]

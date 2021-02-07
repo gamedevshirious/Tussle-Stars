@@ -206,7 +206,6 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=12]
 resource_name = "walk"
-length = 2.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Mesh/legs/right:rotation_degrees")
@@ -215,7 +214,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( -20.6925, 60.9676, 1.46302 ), Vector3( 3.89875, 63.2236, -13.5468 ) ]
@@ -227,7 +226,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 4.42837, 34.0321, 9.2974 ), Vector3( -7.48924, 33.4829, 29.5349 ) ]
@@ -242,7 +241,7 @@ animation = "walk"
 [sub_resource type="AnimationNodeAdd2" id=15]
 
 [sub_resource type="AnimationNodeBlendTree" id=16]
-graph_offset = Vector2( 0, 50.75 )
+graph_offset = Vector2( 0, 131 )
 nodes/Animation/node = SubResource( 14 )
 nodes/Animation/position = Vector2( 123, 209 )
 "nodes/Animation 2/node" = SubResource( 13 )
@@ -327,7 +326,7 @@ transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, -0.4
 [node name="head" type="Spatial" parent="Mesh"]
 
 [node name="head" type="MeshInstance" parent="Mesh/head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.67659, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.67341, 0 )
 layers = 513
 mesh = SubResource( 3 )
 material/0 = SubResource( 6 )
@@ -340,12 +339,12 @@ fov = 90.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148172, 0 )
 
 [node name="torso" type="MeshInstance" parent="Mesh/torso"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6969, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.70321, 0 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 6 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( 0.854054, 0.200628, -0.479934, 0.377056, 0.39683, 0.83687, 0.358352, -0.895696, 0.263266, -0.00324078, 3.06142, -0.26327 )
+transform = Transform( 0.854006, 0.200604, -0.480029, 0.370306, 0.413713, 0.831692, 0.365436, -0.888029, 0.279029, -0.00324078, 3.06142, -0.26327 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -370,7 +369,7 @@ material/0 = SubResource( 6 )
 transform = Transform( 1, -3.42261e-08, -9.31323e-10, 2.61643e-08, 1, -1.86265e-09, -9.31323e-10, 0, 1, -0.00209677, -0.0052557, -0.433681 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.457235, 0.644599, -0.612722, 0.155194, 0.736219, 0.658708, 0.8757, 0.206094, -0.436663, 0.00324077, 3.13388, 0.3 )
+transform = Transform( -0.457227, 0.644561, -0.612768, 0.170944, 0.739854, 0.650687, 0.872767, 0.192762, -0.448465, 0.00324077, 3.13388, 0.3 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -393,12 +392,9 @@ material/0 = SubResource( 6 )
 
 [node name="legs" type="Spatial" parent="Mesh"]
 transform = Transform( 0.998068, 0, -0.0621286, 0, 1, 0, 0.0621286, 0, 0.998068, 0, 0.23107, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="right" type="Position3D" parent="Mesh/legs"]
-transform = Transform( 0.483637, -0.249508, 0.838953, -0.0133608, 0.956292, 0.292107, -0.875166, -0.152483, 0.459165, 0.0274313, 2.23576, 0.193319 )
+transform = Transform( 0.477258, -0.321242, 0.817942, 0.0238847, 0.935185, 0.353353, -0.878438, -0.149104, 0.453998, 0.0274313, 2.23576, 0.193319 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -420,7 +416,7 @@ mesh = SubResource( 10 )
 material/0 = SubResource( 6 )
 
 [node name="left" type="Position3D" parent="Mesh/legs"]
-transform = Transform( 0.815821, -0.152367, 0.557869, 0.213644, 0.975831, -0.0459069, -0.537392, 0.156637, 0.828656, -0.0102438, 2.23576, -0.210141 )
+transform = Transform( 0.824818, -0.0912428, 0.557985, 0.161077, 0.983915, -0.0772126, -0.541967, 0.153565, 0.826249, -0.0102438, 2.23576, -0.210141 )
 __meta__ = {
 "_edit_group_": true
 }
