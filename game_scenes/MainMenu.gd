@@ -21,6 +21,14 @@ var meshes = [
 
 func _process(delta):
 	$player.rotate_y(.5 * delta)
+	
+	
+	if $Play.is_hovered():
+		$Play.set("custom_colors/font_color", Color(255, 255, 255, 255))
+	else:
+		$Play.set("custom_colors/font_color", Color("00cfff"))
+
+	
 
 func _ready():
 	globals.player_name = globals.save_game["player_name"]
@@ -88,3 +96,4 @@ func _on_ShadeColorPicker_color_changed(color):
 	material.set_shader_param("base_color", color)
 	for node in meshes:
 		get_node("player/" + node).set_surface_material(0, material)
+

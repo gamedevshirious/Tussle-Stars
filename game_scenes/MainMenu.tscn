@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://game_scenes/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://resources/shaders/cel.shader" type="Shader" id=2]
@@ -10,13 +10,13 @@
 [ext_resource path="res://game_scenes/helper/BGBox.tscn" type="PackedScene" id=8]
 [ext_resource path="res://game_scenes/helper/BGCamera.tscn" type="PackedScene" id=9]
 
-[sub_resource type="ShaderMaterial" id=12]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 7 )
 shader_param/outline_thickness = 0.03
 shader_param/outline_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="ShaderMaterial" id=2]
-next_pass = SubResource( 12 )
+next_pass = SubResource( 1 )
 shader = ExtResource( 2 )
 shader_param/use_shade = false
 shader_param/use_specular = false
@@ -38,25 +38,27 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
 [sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=11]
 
 [sub_resource type="StyleBoxEmpty" id=14]
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0, 0.811765, 1, 1 )
+[sub_resource type="StyleBoxEmpty" id=15]
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0, 0, 0, 1 )
+[sub_resource type="StyleBoxEmpty" id=12]
 
-[sub_resource type="StyleBoxFlat" id=6]
-draw_center = false
-
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=8]
 size = 32
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 28
+[sub_resource type="DynamicFont" id=9]
+size = 32
+use_filter = true
 font_data = ExtResource( 4 )
 
 [node name="MainMenu" type="Control"]
@@ -67,10 +69,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 26.2808
-margin_top = 486.692
-margin_right = 365.281
-margin_bottom = 948.692
+margin_left = 30.2808
+margin_top = 490.692
+margin_right = 369.281
+margin_bottom = 952.692
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -95,8 +97,8 @@ margin_top = 456.491
 margin_right = 368.251
 margin_bottom = 493.491
 rect_rotation = 0.0487281
-custom_styles/focus = SubResource( 13 )
-custom_styles/normal = SubResource( 14 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 text = " "
 placeholder_text = "Player Name"
 caret_blink = true
@@ -111,29 +113,32 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 744.0
-margin_top = 493.898
-margin_right = 1000.0
-margin_bottom = 568.898
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/normal = SubResource( 6 )
-custom_fonts/font = SubResource( 9 )
+margin_left = 839.892
+margin_top = 513.027
+margin_right = 948.892
+margin_bottom = 545.027
+custom_styles/hover = SubResource( 13 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 15 )
+custom_styles/normal = SubResource( 12 )
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
 text = "Play."
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="."]
+light_mask = -2147483647
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -28.6791
-margin_top = -11.8162
-margin_right = 332.321
-margin_bottom = 66.1838
-custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0, 0.843137, 1, 1 )
+margin_left = -43.4932
+margin_top = -21.4998
+margin_right = 375.507
+margin_bottom = 79.5002
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.454902, 0.403922, 0.376471, 1 )
 text = "Tussle Stars"
 align = 1
 valign = 1
