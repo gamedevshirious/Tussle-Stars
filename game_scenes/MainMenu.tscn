@@ -69,10 +69,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 34.2808
-margin_top = 494.692
-margin_right = 373.281
-margin_bottom = 956.692
+margin_left = 15.7201
+margin_top = 493.873
+margin_right = 354.72
+margin_bottom = 955.873
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -92,9 +92,9 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -
 script = null
 
 [node name="PlayerNameLabel" type="LineEdit" parent="."]
-margin_left = 28.2509
+margin_left = 19.4315
 margin_top = 456.491
-margin_right = 368.251
+margin_right = 359.432
 margin_bottom = 493.491
 rect_rotation = 0.0487281
 custom_styles/focus = SubResource( 3 )
@@ -104,7 +104,6 @@ placeholder_text = "Player Name"
 caret_blink = true
 caret_blink_speed = 0.5
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
