@@ -5,7 +5,7 @@ const JUMP_FORCE = 50
 const GRAVITY = 0.98
 const MAX_FALL_SPEED = 30
 
-const H_LOOK_SENS = 1.0
+const H_LOOK_SENS = .1
 const V_LOOK_SENS = .1
 
 onready var tpcam = $CameraBase/TPCamera
@@ -57,8 +57,8 @@ func _ready():
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func select_script():
-	print(my_info["hero"])
-	print(globals.heroes)
+#	print(my_info["hero"])
+#	print(globals.heroes)
 	if (globals.heroes[my_info["hero"]]["scripts"]["movement"] == "default"):
 		$scripts/movement.set_script(load("res://characters/player/movement.gd"))
 	else:
@@ -77,11 +77,12 @@ func _input(event):
 			cam = fpcam if cam != fpcam else tpcam
 			cam.current = true
 			zoomed_in = false if cam != fpcam else true
-		if event is InputEventMouseMotion or event is InputEventScreenDrag:
-			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
-			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, 0, 30)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
-	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
-			rotation_degrees.y -= event.relative.x * H_LOOK_SENS
+#		if event is InputEventMouseMotion or event is InputEventScreenDrag:
+#			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
+#			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, 0, 30)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
+#	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
+#			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
+#			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
 
 
 func _process(_delta):

@@ -34,6 +34,8 @@ func _ready():
 	globals.player_name = globals.save_game["player_name"]
 	$PlayerNameLabel.text = globals.player_name
 	
+	$CSGBox/Camera.current = true
+	
 #	$ShadeColorPicker.color = globals.save_game["color"]
 	var rgb = globals.color.split(',') 
 	
