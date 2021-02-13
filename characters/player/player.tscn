@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/buttons/right.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/sprites/buttons/left.png" type="Texture" id=6]
 [ext_resource path="res://resources/sprites/buttons/shoot.png" type="Texture" id=7]
 [ext_resource path="res://characters/player/MiniMapCamera.gd" type="Script" id=8]
+[ext_resource path="res://resources/sprites/game icons/dark/cross.png" type="Texture" id=9]
 
 [sub_resource type="SphereShape" id=1]
 radius = 0.315579
@@ -16,16 +17,20 @@ radius = 0.315579
 radius = 0.52393
 height = 1.89844
 
-[sub_resource type="SphereMesh" id=3]
+[sub_resource type="Environment" id=3]
+background_mode = 1
+background_color = Color( 0, 0.764706, 1, 1 )
+
+[sub_resource type="SphereMesh" id=4]
 radius = 0.3
 height = 0.6
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 3 )
 shader_param/outline_thickness = 0.02
 shader_param/outline_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=6]
 code = "//By David Lipps aka DaveTheDev @ EXPWorlds
 //v2.0.0 for Godot 3.2
 
@@ -113,9 +118,9 @@ void light()
 	ALPHA = diffuse.a;
 }"
 
-[sub_resource type="ShaderMaterial" id=6]
-next_pass = SubResource( 4 )
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=7]
+next_pass = SubResource( 5 )
+shader = SubResource( 6 )
 shader_param/use_shade = false
 shader_param/use_specular = false
 shader_param/use_rim = false
@@ -136,24 +141,27 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
-[sub_resource type="CylinderMesh" id=7]
+[sub_resource type="Environment" id=8]
+background_mode = 1
+background_color = Color( 0, 0.764706, 1, 1 )
+
+[sub_resource type="CylinderMesh" id=9]
 top_radius = 0.4
 bottom_radius = 0.4
 height = 1.0
 
-[sub_resource type="CapsuleMesh" id=8]
-radius = 0.09
-mid_height = 0.75
-
-[sub_resource type="CapsuleMesh" id=9]
-radius = 0.09
-mid_height = 0.75
-
 [sub_resource type="CapsuleMesh" id=10]
+radius = 0.09
+mid_height = 0.75
+
+[sub_resource type="CapsuleMesh" id=11]
+radius = 0.09
+mid_height = 0.75
+
+[sub_resource type="CapsuleMesh" id=12]
 radius = 0.12
 
-[sub_resource type="Animation" id=11]
-resource_name = "torso_idle"
+[sub_resource type="Animation" id=13]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Mesh/torso/left:rotation_degrees")
@@ -162,10 +170,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( -57.1996, -62.2791, 44.7672 ), Vector3( -55.6943, -58.3028, 39.997 ) ]
+"values": [ Vector3( -34.5798, -70.8146, -59.1415 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Mesh/torso/right:rotation_degrees")
@@ -174,38 +182,13 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
 "update": 0,
-"values": [ Vector3( -41.6403, -124.954, 11.1051 ), Vector3( -39.9395, -126.977, 14.1999 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Mesh/torso/torso:translation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 2.69235, 0 ), Vector3( 0, 2.71, 0 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Mesh/head/head:translation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 3.67888, 0 ), Vector3( 0, 3.67, 0 ) ]
+"values": [  ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "walk"
+[sub_resource type="Animation" id=14]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Mesh/legs/right:rotation_degrees")
@@ -232,22 +215,22 @@ tracks/1/keys = {
 "values": [ Vector3( 4.42837, 34.0321, 9.2974 ), Vector3( -7.48924, 33.4829, 29.5349 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "torso_idle"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "walk"
 
-[sub_resource type="AnimationNodeAdd2" id=15]
+[sub_resource type="AnimationNodeAdd2" id=17]
 
-[sub_resource type="AnimationNodeBlendTree" id=16]
+[sub_resource type="AnimationNodeBlendTree" id=18]
 graph_offset = Vector2( 0, 131 )
-nodes/Animation/node = SubResource( 14 )
+nodes/Animation/node = SubResource( 16 )
 nodes/Animation/position = Vector2( 123, 209 )
-"nodes/Animation 2/node" = SubResource( 13 )
+"nodes/Animation 2/node" = SubResource( 15 )
 "nodes/Animation 2/position" = Vector2( 120, 80 )
 nodes/output/position = Vector2( 680, 120 )
-nodes/walk/node = SubResource( 15 )
+nodes/walk/node = SubResource( 17 )
 nodes/walk/position = Vector2( 360, 120 )
 node_connections = [ "output", 0, "walk", "walk", 0, "Animation 2", "walk", 1, "Animation" ]
 
@@ -316,7 +299,8 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0202279, 0 )
 
 [node name="TPCamera" type="Camera" parent="CameraBase"]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5, 4, 0 )
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -6.42913, 4, 0 )
+environment = SubResource( 3 )
 fov = 90.0
 size = 15.0
 
@@ -326,95 +310,103 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.408068, 0 )
 [node name="head" type="Spatial" parent="Mesh"]
 
 [node name="head" type="MeshInstance" parent="Mesh/head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.67188, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6773, 0 )
 layers = 513
-mesh = SubResource( 3 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 7 )
 
 [node name="FPCamera" type="Camera" parent="Mesh/head/head"]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.315048, -0.0349627, 5.1328e-08 )
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.298769, -0.0383554, 5.1328e-08 )
+environment = SubResource( 8 )
 current = true
 fov = 90.0
+
+[node name="cross" type="Sprite" parent="Mesh/head/head/FPCamera"]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 512, 300 )
+rotation = 0.785398
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 9 )
 
 [node name="torso" type="Spatial" parent="Mesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148172, 0 )
 
 [node name="torso" type="MeshInstance" parent="Mesh/torso"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.70626, 0 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6955, 0 )
+mesh = SubResource( 9 )
+material/0 = SubResource( 7 )
+
+[node name="Muzzle" type="Position3D" parent="Mesh/torso"]
+transform = Transform( -1.6292e-07, 0, -0.999998, 0, 0.999999, 0, 0.999997, 0, -1.6292e-07, 0.85476, 3.39314, 0.0108064 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( 0.85408, 0.20063, -0.479885, 0.366795, 0.42183, 0.829166, 0.368787, -0.884196, 0.286687, -0.00324078, 3.06142, -0.26327 )
+transform = Transform( -0.291592, 0.557046, -0.777608, -0.706782, 0.422304, 0.567554, 0.644541, 0.715093, 0.270569, 0.00324064, 3.11875, -0.2952 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="upper" type="MeshInstance" parent="Mesh/torso/left"]
-transform = Transform( 0.986868, -0.0559773, 0.15152, 0.0571064, 0.998364, -0.00310808, -0.151098, 0.0117199, 0.98845, 7.82311e-08, 0.0358784, -0.409432 )
-mesh = SubResource( 8 )
-material/0 = SubResource( 6 )
+transform = Transform( 1, 0, 0, 5.96046e-08, 1, 0, -4.47035e-08, -4.47035e-08, 1, 0, 1.19209e-07, -0.409 )
+mesh = SubResource( 10 )
+material/0 = SubResource( 7 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/left/upper"]
-transform = Transform( 0.175565, -0.463803, -0.868369, -0.824196, -0.551648, 0.128005, -0.538401, 0.693234, -0.479115, -0.0217828, -0.0373943, -0.406725 )
+transform = Transform( 0.416193, -0.841424, 0.344659, -0.121189, -0.426995, -0.896095, 0.901164, 0.331179, -0.279685, -0.0118133, -0.00972182, -0.410127 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="hand" type="MeshInstance" parent="Mesh/torso/left/upper/elbow"]
-transform = Transform( 1, -2.23517e-08, 2.98023e-08, -7.45058e-09, 1, 1.11759e-08, 8.9407e-08, 1.49012e-08, 1, -0.0156998, -0.0176644, -0.414629 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 6 )
-
-[node name="Muzzle" type="Position3D" parent="Mesh/torso/left/upper/elbow/hand"]
-transform = Transform( 1, -3.42261e-08, -9.31323e-10, 2.61643e-08, 1, -1.86265e-09, -9.31323e-10, 0, 1, -0.00209677, -0.0052557, -0.433681 )
+transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 7 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.457252, 0.644613, -0.612694, 0.178611, 0.741459, 0.646789, 0.871217, 0.186312, -0.454169, 0.00324077, 3.13388, 0.3 )
+transform = Transform( -0.455156, 0.560507, -0.691855, 0.113718, 0.807235, 0.579171, 0.88312, 0.184936, -0.431159, 0.00324076, 3.13388, 0.3 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="upper" type="MeshInstance" parent="Mesh/torso/right"]
 transform = Transform( 1, 4.47035e-08, 0, 4.47035e-08, 1, 0, -2.98023e-08, -2.98023e-08, 1, 2.38419e-07, 1.19209e-07, -0.409 )
-mesh = SubResource( 8 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 10 )
+material/0 = SubResource( 7 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/right/upper"]
-transform = Transform( 0.594988, -0.542542, 0.592991, -0.260614, -0.828161, -0.496213, 0.760309, 0.140699, -0.63414, -0.0083726, -0.00542712, -0.410209 )
+transform = Transform( 0.574458, -0.519226, 0.632774, -0.16302, -0.830144, -0.533183, 0.802136, 0.203136, -0.561528, -0.00837255, -0.00542808, -0.410209 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="hand" type="MeshInstance" parent="Mesh/torso/right/upper/elbow"]
 transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 7 )
 
 [node name="legs" type="Spatial" parent="Mesh"]
 transform = Transform( 0.998068, 0, -0.0621286, 0, 1, 0, 0.0621286, 0, 0.998068, 0, 0.23107, 0 )
 
 [node name="right" type="Position3D" parent="Mesh/legs"]
-transform = Transform( 0.477258, -0.321242, 0.817942, 0.0238847, 0.935185, 0.353353, -0.878438, -0.149104, 0.453998, 0.0274313, 2.23576, 0.193319 )
+transform = Transform( 0.578609, -0.301169, 0.757964, 0.0238847, 0.935185, 0.353353, -0.815255, -0.186349, 0.5483, 0.0274313, 2.23576, 0.193319 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="upper" type="MeshInstance" parent="Mesh/legs/right"]
 transform = Transform( 1, 0, -2.98023e-08, -2.98023e-08, -1.61119e-07, -1, -7.45058e-09, 1, -1.66707e-07, -0.0171196, -0.421865, 0.019 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 7 )
 
 [node name="knee" type="Position3D" parent="Mesh/legs/right/upper"]
-transform = Transform( -0.0396235, -0.112813, -0.992826, 0.919402, 0.385006, -0.0804406, 0.391318, -0.915994, 0.0884646, 0.00755191, -0.00429317, 0.526732 )
+transform = Transform( 0.343728, 0.0163191, -0.938928, 0.819575, 0.482878, 0.308426, 0.45842, -0.875537, 0.152603, 0.00755186, -0.00429326, 0.526732 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="lower" type="MeshInstance" parent="Mesh/legs/right/upper/knee"]
 transform = Transform( 0.999998, 1.11759e-08, -1.19209e-07, -2.38419e-07, -1.49012e-07, -0.999999, 6.70552e-08, 0.999999, -1.45286e-07, -0.000300884, -0.510887, 0.010267 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 7 )
 
 [node name="left" type="Position3D" parent="Mesh/legs"]
 transform = Transform( 0.824818, -0.0912428, 0.557985, 0.161077, 0.983915, -0.0772126, -0.541967, 0.153565, 0.826249, -0.0102438, 2.23576, -0.210141 )
@@ -424,8 +416,8 @@ __meta__ = {
 
 [node name="upper" type="MeshInstance" parent="Mesh/legs/left"]
 transform = Transform( 1, 3.72529e-09, 0, 2.98023e-08, -1.63913e-07, -1, -1.11759e-08, 1, -1.63913e-07, 0.00711975, -0.421865, 0.019 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 7 )
 
 [node name="knee" type="Position3D" parent="Mesh/legs/left/upper"]
 transform = Transform( 0.909609, 0.410759, -0.0623548, -0.000165045, 0.150442, 0.98862, 0.415464, -0.899247, 0.136911, 0.00958216, -0.0103616, 0.53348 )
@@ -435,18 +427,18 @@ __meta__ = {
 
 [node name="lower" type="MeshInstance" parent="Mesh/legs/left/upper/knee"]
 transform = Transform( 1, 1.49012e-08, 2.98023e-07, 2.38419e-07, -1.86265e-07, -1, -1.49012e-08, 1, -1.41561e-07, -0.00331423, -0.518717, 0.0107999 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 7 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 8, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/torso_idle = SubResource( 11 )
-anims/walk = SubResource( 12 )
+anims/torso_idle = SubResource( 13 )
+anims/walk = SubResource( 14 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 16 )
+tree_root = SubResource( 18 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/walk/add_amount = 0.0

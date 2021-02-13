@@ -77,20 +77,24 @@ func _input(event):
 			cam = fpcam if cam != fpcam else tpcam
 			cam.current = true
 			zoomed_in = false if cam != fpcam else true
-#		if event is InputEventMouseMotion or event is InputEventScreenDrag:
-#			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
-#			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, 0, 30)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
-#	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
+		if event is InputEventMouseMotion or event is InputEventScreenDrag:
+			
+			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
+			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
+	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
 #			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
 #			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
+			rotate_y(event.relative.x * -.01)
 
 
-func _process(_delta):
-	move()
+func _process(delta):
+	move(delta)
+	
+	$Mesh/torso/Muzzle.rotation_degrees.x = cam.rotation_degrees.x
 #	$CameraBase/Crosshair.visible = zoomed_in
-func move():
+func move(delta):
 	if is_network_master():
-		$scripts/movement.move(self)
+		$scripts/movement.move(self, delta)
 
 		if Input.is_action_just_pressed("shoot"):
 			rpc("quick")
