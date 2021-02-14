@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/buttons/right.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://resources/sprites/buttons/shoot.png" type="Texture" id=7]
 [ext_resource path="res://characters/player/MiniMapCamera.gd" type="Script" id=8]
 [ext_resource path="res://resources/sprites/game icons/dark/cross.png" type="Texture" id=9]
+[ext_resource path="res://characters/3D/projectiles/fireball/fireball.tscn" type="PackedScene" id=10]
 
 [sub_resource type="SphereShape" id=1]
 radius = 0.315579
@@ -337,13 +338,10 @@ mesh = SubResource( 9 )
 material/0 = SubResource( 7 )
 
 [node name="Muzzle" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -1.6292e-07, 0, -0.999998, 0, 0.999999, 0, 0.999997, 0, -1.6292e-07, 0.85476, 3.39314, 0.0108064 )
+transform = Transform( -1.6292e-07, 0, -0.999998, 0, 0.999999, 0, 0.999997, 0, -1.6292e-07, 1.35882, 3.39314, 0.0108064 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.291592, 0.557046, -0.777608, -0.706782, 0.422304, 0.567554, 0.644541, 0.715093, 0.270569, 0.00324064, 3.11875, -0.2952 )
-__meta__ = {
-"_edit_group_": true
-}
+transform = Transform( -0.291591, 0.557045, -0.777608, -0.706782, 0.422305, 0.567553, 0.644542, 0.715093, 0.27057, 0.00324064, 3.11875, -0.2952 )
 
 [node name="upper" type="MeshInstance" parent="Mesh/torso/left"]
 transform = Transform( 1, 0, 0, 5.96046e-08, 1, 0, -4.47035e-08, -4.47035e-08, 1, 0, 1.19209e-07, -0.409 )
@@ -352,9 +350,6 @@ material/0 = SubResource( 7 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/left/upper"]
 transform = Transform( 0.416193, -0.841424, 0.344659, -0.121189, -0.426995, -0.896095, 0.901164, 0.331179, -0.279685, -0.0118133, -0.00972182, -0.410127 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="hand" type="MeshInstance" parent="Mesh/torso/left/upper/elbow"]
 transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
@@ -362,7 +357,7 @@ mesh = SubResource( 11 )
 material/0 = SubResource( 7 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.455156, 0.560507, -0.691855, 0.113718, 0.807235, 0.579171, 0.88312, 0.184936, -0.431159, 0.00324076, 3.13388, 0.3 )
+transform = Transform( -0.990061, 0.0435251, 0.133732, 0.128101, 0.671524, 0.729825, -0.0580381, 0.739702, -0.670426, 0.00324076, 3.13388, 0.3 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -373,7 +368,7 @@ mesh = SubResource( 10 )
 material/0 = SubResource( 7 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/right/upper"]
-transform = Transform( 0.574458, -0.519226, 0.632774, -0.16302, -0.830144, -0.533183, 0.802136, 0.203136, -0.561528, -0.00837255, -0.00542808, -0.410209 )
+transform = Transform( -0.761415, 0.588183, 0.272561, -0.644929, -0.644685, -0.410424, -0.0656891, -0.488284, 0.870211, -0.00837255, -0.00542808, -0.410209 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -429,6 +424,20 @@ __meta__ = {
 transform = Transform( 1, 1.49012e-08, 2.98023e-07, 2.38419e-07, -1.86265e-07, -1, -1.49012e-08, 1, -1.41561e-07, -0.00331423, -0.518717, 0.0107999 )
 mesh = SubResource( 12 )
 material/0 = SubResource( 7 )
+
+[node name="fireballs" type="Spatial" parent="Mesh"]
+
+[node name="fireball2" parent="Mesh/fireballs" instance=ExtResource( 10 )]
+transform = Transform( -0.0665574, -0.0668823, -0.099358, -0.0720944, 0.0461405, 0.155116, -0.0193, 0.0582908, -0.236785, -0.112549, 2.69021, 1.16997 )
+script = null
+
+[node name="fireball3" parent="Mesh/fireballs" instance=ExtResource( 10 )]
+transform = Transform( -0.0332787, -0.033441, -0.0165596, -0.0360472, 0.0230704, 0.0258526, -0.00964997, 0.0291454, -0.0394642, 0.959842, 3.71349, -0.132426 )
+script = null
+
+[node name="fireball" parent="Mesh/fireballs" instance=ExtResource( 10 )]
+transform = Transform( -0.0415218, -0.0897189, 0.0451507, -0.0451456, 0.0346843, 0.246638, -0.0789799, 0.0273415, -0.164716, -0.131866, 3.09353, 0.649867 )
+script = null
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 8, 0 )
