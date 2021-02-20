@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/buttons/right.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://resources/sprites/buttons/down.png" type="Texture" id=5]
 [ext_resource path="res://resources/sprites/buttons/left.png" type="Texture" id=6]
 [ext_resource path="res://resources/sprites/buttons/shoot.png" type="Texture" id=7]
-[ext_resource path="res://characters/player/MiniMapCamera.gd" type="Script" id=8]
 [ext_resource path="res://resources/sprites/game icons/dark/cross.png" type="Texture" id=9]
 [ext_resource path="res://characters/3D/projectiles/fireball/fireball.tscn" type="PackedScene" id=10]
 
@@ -265,29 +264,6 @@ position = Vector2( 786, 404 )
 normal = ExtResource( 7 )
 action = "shoot"
 
-[node name="ViewportContainer" type="ViewportContainer" parent="HUD"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -280.0
-margin_top = 20.0
-margin_right = -30.0
-margin_bottom = 190.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Viewport" type="Viewport" parent="HUD/ViewportContainer"]
-size = Vector2( 250, 170 )
-transparent_bg = true
-handle_input_locally = false
-usage = 3
-render_target_update_mode = 3
-
-[node name="Camera" type="Camera" parent="HUD/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 0.405827, 0.91395, 0, -0.91395, 0.405827, 0, 15, 5.00307 )
-current = true
-script = ExtResource( 8 )
-
 [node name="head" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28137, 0 )
 shape = SubResource( 1 )
@@ -427,16 +403,8 @@ material/0 = SubResource( 7 )
 
 [node name="fireballs" type="Spatial" parent="Mesh"]
 
-[node name="fireball2" parent="Mesh/fireballs" instance=ExtResource( 10 )]
-transform = Transform( -0.0665574, -0.0668823, -0.099358, -0.0720944, 0.0461405, 0.155116, -0.0193, 0.0582908, -0.236785, -0.112549, 2.69021, 1.16997 )
-script = null
-
-[node name="fireball3" parent="Mesh/fireballs" instance=ExtResource( 10 )]
-transform = Transform( -0.0332787, -0.033441, -0.0165596, -0.0360472, 0.0230704, 0.0258526, -0.00964997, 0.0291454, -0.0394642, 0.959842, 3.71349, -0.132426 )
-script = null
-
 [node name="fireball" parent="Mesh/fireballs" instance=ExtResource( 10 )]
-transform = Transform( -0.0415218, -0.0897189, 0.0451507, -0.0451456, 0.0346843, 0.246638, -0.0789799, 0.0273415, -0.164716, -0.131866, 3.09353, 0.649867 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.1, 1.77197, 3.69014, 0 )
 script = null
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]

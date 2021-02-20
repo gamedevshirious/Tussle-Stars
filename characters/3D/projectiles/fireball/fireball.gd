@@ -3,7 +3,7 @@ extends KinematicBody
 const DESPAWN_TIME = 5
 
 var timer = 0
-var velocity
+var velocity = Vector3()
 var bullet_velocity = 5
 
 func _ready():

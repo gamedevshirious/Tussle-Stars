@@ -8,9 +8,11 @@ const MAX_FALL_SPEED = 30
 var y_velo = 0
 var current_facing = 0
 
-func move(_self, delta):
-	_self = get_parent().get_parent()
+func move(delta):
+	var _self = get_parent().get_parent()
 	var move_vec = Vector3()
+	
+	
 	if Input.is_action_pressed("ui_left"):
 #		move_vec.z -= 1
 		_self.rotate_object_local(Vector3(0, 1, 0), .1)
