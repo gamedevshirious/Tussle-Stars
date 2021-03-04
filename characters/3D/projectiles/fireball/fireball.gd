@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const DESPAWN_TIME = 5
+const DESPAWN_TIME = 500
 
 var timer = 0
 var velocity = Vector3()

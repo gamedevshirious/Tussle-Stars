@@ -98,9 +98,3 @@ func _on_ShadeColorPicker_color_changed(color):
 	material.set_shader_param("base_color", color)
 	for node in meshes:
 		get_node("player/" + node).set_surface_material(0, material)
-
-
-
-func _on_Timer_timeout():
-	for child in $player/Mesh/fireballs.get_children():
-		child.get_node("Particles").emitting = true

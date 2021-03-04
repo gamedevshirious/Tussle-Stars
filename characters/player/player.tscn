@@ -25,7 +25,7 @@ background_color = Color( 0, 0.764706, 1, 1 )
 radius = 0.3
 height = 0.6
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=19]
 shader = ExtResource( 3 )
 shader_param/outline_thickness = 0.02
 shader_param/outline_color = Color( 0, 0, 0, 1 )
@@ -119,14 +119,14 @@ void light()
 }"
 
 [sub_resource type="ShaderMaterial" id=7]
-next_pass = SubResource( 5 )
+next_pass = SubResource( 19 )
 shader = SubResource( 6 )
 shader_param/use_shade = false
 shader_param/use_specular = false
 shader_param/use_rim = false
 shader_param/use_light = false
 shader_param/use_shadow = false
-shader_param/base_color = Color( 1, 1, 1, 1 )
+shader_param/base_color = Color( 1, 0.580392, 0.580392, 1 )
 shader_param/shade_color = Color( 1, 1, 1, 1 )
 shader_param/specular_tint = Color( 0.75, 0.75, 0.75, 0.75 )
 shader_param/rim_tint = Color( 0.75, 0.75, 0.75, 0.75 )
@@ -404,8 +404,7 @@ material/0 = SubResource( 7 )
 [node name="fireballs" type="Spatial" parent="Mesh"]
 
 [node name="fireball" parent="Mesh/fireballs" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.1, 1.77197, 3.69014, 0 )
-script = null
+transform = Transform( 0.1, 0, 0, 0, 0.6, 0, 0, 0, 0.1, -0.111064, 3.42656, -0.103686 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 8, 0 )
