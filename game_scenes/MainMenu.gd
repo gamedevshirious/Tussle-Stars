@@ -98,3 +98,5 @@ func _on_ShadeColorPicker_color_changed(color):
 	material.set_shader_param("base_color", color)
 	for node in meshes:
 		get_node("player/" + node).set_surface_material(0, material)
+	
+	

@@ -8,7 +8,7 @@ const MAX_FALL_SPEED = 30
 const H_LOOK_SENS = .1
 const V_LOOK_SENS = .1
 
-onready var tpcam = $CameraBase/TPCamera
+onready var tpcam = $TPCamera
 onready var fpcam = $Mesh/head/head/FPCamera
 var cam
 var zoomed_in = false
@@ -78,13 +78,13 @@ func _input(event):
 			cam.current = true
 			zoomed_in = false if cam != fpcam else true
 			
-		if event is InputEventMouseMotion or event is InputEventScreenDrag:
-			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
-			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
-	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
-#			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
-#			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
-			rotate_y(event.relative.x * -.01)
+#		if event is InputEventMouseMotion or event is InputEventScreenDrag:
+#			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
+#			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
+#	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
+##			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
+##			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
+#			rotate_y(event.relative.x * -.01)
 
 
 func _process(delta):

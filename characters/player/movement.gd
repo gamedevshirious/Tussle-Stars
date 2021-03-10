@@ -12,19 +12,20 @@ func move(delta):
 	var _self = get_parent().get_parent()
 	var move_vec = Vector3()
 	
-	
-	if Input.is_action_pressed("ui_left"):
-#		move_vec.z -= 1
-		_self.rotate_object_local(Vector3(0, 1, 0), .1)
-#		_self.get_node("Mesh").rotation_degrees.y = clamp(_self.get_node("Mesh").rotation_degrees.y, current_facing, 90)
-	if Input.is_action_pressed("ui_right"):
-#		move_vec.z += 1
-		_self.rotate_object_local(Vector3(0, 1, 0), -.1)
+#
+#	if Input.is_action_pressed("ui_left"):
+##		move_vec.z -= 1
+#		_self.rotate_object_local(Vector3(0, 1, 0), .1)
+##		_self.get_node("Mesh").rotation_degrees.y = clamp(_self.get_node("Mesh").rotation_degrees.y, current_facing, 90)
+#	if Input.is_action_pressed("ui_right"):
+##		move_vec.z += 1
+#		_self.rotate_object_local(Vector3(0, 1, 0), -.1)
 		
 #		_self.get_node("Mesh").rotation_degrees.y = clamp(_self.get_node("Mesh").rotation_degrees.y, -90, current_facing)
 	if Input.is_action_pressed("ui_up"):
-		move_vec.x += 1
+		move_vec.x -= 1
 #		_self.translate_object_local(_self.transform.basis.x)
+#		_self.get_node("Mesh").rotation.y = lerp_angle(_self.get_node("Mesh").rotation.y, current_facing, 0.1)
 #		if _self.get_node("Mesh").rotation_degrees.y < 0:
 #			_self.get_node("Mesh").rotation_degrees.y += 5
 #			_self.get_node("Mesh").rotation_degrees.y = clamp(_self.get_node("Mesh").rotation_degrees.y, 0, current_facing)
@@ -36,7 +37,7 @@ func move(delta):
 		
 #		_self.get_node("Mesh").rotation_degrees.y = lerp_angle(90, _self.rotation_degrees.y, .01)
 	if Input.is_action_pressed("ui_down"):
-		move_vec.x -= 1
+		move_vec.x += 1
 #		_self.translate_object_local(-_self.transform.basis.x)
 	# _self.get_node("Mesh").rotation_degrees.y = lerp_angle(_self.get_node("Mesh").rotation_degrees.y, 0, .1)
 #	if _self.cam.name == "TPCamera":
@@ -44,7 +45,7 @@ func move(delta):
 #	else:
 #		_self.rotation_degrees.y = _self.get_node("Mesh").rotation_degrees.y
 #		_self.get_node("Mesh").rotation_degrees.y = 0
-	current_facing = _self.get_node("Mesh").rotation_degrees.y
+	current_facing = _self.get_node("TPCamera").rotation.y
 #	move_vec.z -= Input.get_action_strength("ui_up")
 #	move_vec.z += Input.get_action_strength("ui_down") / 2 
 #	move_vec.x += Input.get_action_strength("ui_right")
@@ -54,7 +55,7 @@ func move(delta):
 	var grounded = _self.is_on_floor()
 
 	move_vec = move_vec.normalized()
-	move_vec = move_vec.rotated(Vector3(0, 1, 0), _self.rotation.y)
+	move_vec = move_vec.rotated(Vector3(0, 1, 0), current_facing)
 	move_vec *= MOVE_SPEED
 	move_vec.y = y_velo
 	

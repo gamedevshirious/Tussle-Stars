@@ -69,10 +69,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 57.0415
-margin_top = 484.798
-margin_right = 396.042
-margin_bottom = 946.798
+margin_left = 69.0415
+margin_top = 496.798
+margin_right = 408.042
+margin_bottom = 958.798
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -89,6 +89,12 @@ material = SubResource( 2 )
 
 [node name="player" parent="." instance=ExtResource( 5 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -0.844639 )
+script = null
+
+[node name="left" parent="player/Mesh/torso" index="2"]
+transform = Transform( -0.291591, 0.557045, -0.777608, -0.706782, 0.422305, 0.567553, 0.644542, 0.715093, 0.27057, 0.00324064, 3.11875, -0.2952 )
+
+[node name="TPCamera" parent="player" index="10"]
 script = null
 
 [node name="PlayerNameLabel" type="LineEdit" parent="."]
@@ -147,3 +153,5 @@ __meta__ = {
 [connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
 [connection signal="text_changed" from="PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Play" to="." method="_on_Multiplayer_pressed"]
+
+[editable path="player"]
