@@ -7,7 +7,12 @@ const MAX_FALL_SPEED = 30
 
 var y_velo = 0
 var current_facing = 0
+var mouseDelta
 
+func _input(event):
+	if event is InputEventMouseMotion:
+		mouseDelta = event.relative
+		
 func move(delta):
 	var _self = get_parent().get_parent()
 	var move_vec = Vector3()
@@ -50,7 +55,7 @@ func move(delta):
 #	move_vec.z += Input.get_action_strength("ui_down") / 2 
 #	move_vec.x += Input.get_action_strength("ui_right")
 #	move_vec.x -= Input.get_action_strength("ui_left")
-
+	_self.rotation.z = _self.get_node("TPCamera").rotatio
 
 	var grounded = _self.is_on_floor()
 
