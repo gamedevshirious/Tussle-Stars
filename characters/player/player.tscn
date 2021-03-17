@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/buttons/right.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://resources/sprites/buttons/down.png" type="Texture" id=5]
 [ext_resource path="res://resources/sprites/buttons/left.png" type="Texture" id=6]
 [ext_resource path="res://resources/sprites/buttons/shoot.png" type="Texture" id=7]
-[ext_resource path="res://assets/maujoe.camera_control/scripts/camera_control.gd" type="Script" id=8]
 [ext_resource path="res://resources/sprites/game icons/dark/cross.png" type="Texture" id=9]
 [ext_resource path="res://characters/3D/projectiles/fireball/fireball.tscn" type="PackedScene" id=10]
 
@@ -436,7 +435,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.02, 5 )
 environment = SubResource( 18 )
 fov = 90.0
 size = 15.0
-script = ExtResource( 8 )
-mouse_mode = 0
-privot = NodePath("../..")
-pitch_limit = 20
