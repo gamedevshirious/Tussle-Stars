@@ -17,9 +17,8 @@ radius = 0.315579
 radius = 0.52393
 height = 1.89844
 
-[sub_resource type="SphereMesh" id=3]
-radius = 0.3
-height = 0.6
+[sub_resource type="CapsuleMesh" id=11]
+radius = 0.12
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 3 )
@@ -137,6 +136,10 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
+[sub_resource type="SphereMesh" id=3]
+radius = 0.3
+height = 0.6
+
 [sub_resource type="Environment" id=7]
 background_mode = 1
 background_color = Color( 0, 0.764706, 1, 1 )
@@ -153,9 +156,6 @@ mid_height = 0.75
 [sub_resource type="CapsuleMesh" id=10]
 radius = 0.09
 mid_height = 0.75
-
-[sub_resource type="CapsuleMesh" id=11]
-radius = 0.12
 
 [sub_resource type="Animation" id=12]
 loop = true
@@ -279,81 +279,6 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0202279, 0 )
 
 [node name="Mesh" type="Spatial" parent="."]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, 0 )
-
-[node name="head" type="Spatial" parent="Mesh"]
-
-[node name="head" type="MeshInstance" parent="Mesh/head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6773, 0 )
-layers = 513
-mesh = SubResource( 3 )
-material/0 = SubResource( 6 )
-
-[node name="FPCamera" type="Camera" parent="Mesh/head/head"]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.298769, -0.0383554, 5.1328e-08 )
-environment = SubResource( 7 )
-current = true
-fov = 90.0
-
-[node name="cross" type="Sprite" parent="Mesh/head/head/FPCamera"]
-modulate = Color( 1, 1, 1, 0.498039 )
-position = Vector2( 512, 300 )
-rotation = 0.785398
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 9 )
-
-[node name="fireball" parent="Mesh/head" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2181, 3.45208, -1.42109e-14 )
-script = null
-
-[node name="torso" type="Spatial" parent="Mesh"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148172, 0 )
-
-[node name="torso" type="MeshInstance" parent="Mesh/torso"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6955, 0 )
-mesh = SubResource( 8 )
-material/0 = SubResource( 6 )
-
-[node name="Muzzle" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -1.6292e-07, 0, -0.999998, 0, 0.999999, 0, 0.999997, 0, -1.6292e-07, 1.35882, 3.39314, 0.0108064 )
-
-[node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.291591, 0.557045, -0.777608, -0.706782, 0.422305, 0.567553, 0.644542, 0.715093, 0.27057, 0.00324064, 3.11875, -0.2952 )
-
-[node name="upper" type="MeshInstance" parent="Mesh/torso/left"]
-transform = Transform( 1, 0, 0, 5.96046e-08, 1, 0, -4.47035e-08, -4.47035e-08, 1, 0, 1.19209e-07, -0.409 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 6 )
-
-[node name="elbow" type="Position3D" parent="Mesh/torso/left/upper"]
-transform = Transform( 0.416193, -0.841424, 0.344659, -0.121189, -0.426995, -0.896095, 0.901164, 0.331179, -0.279685, -0.0118133, -0.00972182, -0.410127 )
-
-[node name="hand" type="MeshInstance" parent="Mesh/torso/left/upper/elbow"]
-transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 6 )
-
-[node name="right" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.990061, 0.0435251, 0.133732, 0.128101, 0.671524, 0.729825, -0.0580381, 0.739702, -0.670426, 0.00324076, 3.13388, 0.3 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="upper" type="MeshInstance" parent="Mesh/torso/right"]
-transform = Transform( 1, 4.47035e-08, 0, 4.47035e-08, 1, 0, -2.98023e-08, -2.98023e-08, 1, 2.38419e-07, 1.19209e-07, -0.409 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 6 )
-
-[node name="elbow" type="Position3D" parent="Mesh/torso/right/upper"]
-transform = Transform( -0.761415, 0.588183, 0.272561, -0.644929, -0.644685, -0.410424, -0.0656891, -0.488284, 0.870211, -0.00837255, -0.00542808, -0.410209 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="hand" type="MeshInstance" parent="Mesh/torso/right/upper/elbow"]
-transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 6 )
 
 [node name="legs" type="Spatial" parent="Mesh"]
 transform = Transform( 0.998068, 0, -0.0621286, 0, 1, 0, 0.0621286, 0, 0.998068, 0, 0.23107, 0 )
@@ -400,6 +325,84 @@ __meta__ = {
 [node name="lower" type="MeshInstance" parent="Mesh/legs/left/upper/knee"]
 transform = Transform( 1, 1.49012e-08, 2.98023e-07, 2.38419e-07, -1.86265e-07, -1, -1.49012e-08, 1, -1.41561e-07, -0.00331423, -0.518717, 0.0107999 )
 mesh = SubResource( 11 )
+material/0 = SubResource( 6 )
+
+[node name="head" type="Spatial" parent="Mesh"]
+
+[node name="head" type="MeshInstance" parent="Mesh/head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6773, 0 )
+layers = 513
+mesh = SubResource( 3 )
+material/0 = SubResource( 6 )
+
+[node name="FPCamera" type="Camera" parent="Mesh/head/head"]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.298769, -0.0383554, 5.1328e-08 )
+environment = SubResource( 7 )
+current = true
+fov = 90.0
+
+[node name="cross" type="Sprite" parent="Mesh/head/head/FPCamera"]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 512, 300 )
+rotation = 0.785398
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 9 )
+
+[node name="fireball" parent="Mesh/head" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060836, 3.45208, 0.673024 )
+script = null
+
+[node name="fireball2" parent="Mesh/head" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060836, 3.45208, -0.704064 )
+script = null
+
+[node name="torso" type="Spatial" parent="Mesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148172, 0 )
+
+[node name="torso" type="MeshInstance" parent="Mesh/torso"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6955, 0 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 6 )
+
+[node name="Muzzle" type="Position3D" parent="Mesh/torso"]
+transform = Transform( -1.6292e-07, 0, -0.999998, 0, 0.999999, 0, 0.999997, 0, -1.6292e-07, 1.35882, 3.39314, 0.0108064 )
+
+[node name="left" type="Position3D" parent="Mesh/torso"]
+transform = Transform( -0.291591, 0.557045, -0.777608, -0.706782, 0.422305, 0.567553, 0.644542, 0.715093, 0.27057, 0.00324064, 3.11875, -0.2952 )
+
+[node name="upper" type="MeshInstance" parent="Mesh/torso/left"]
+transform = Transform( 1, 2.98023e-08, 0, 1.19209e-07, 1, 1.49012e-08, -1.49012e-08, -7.45058e-08, 1, -2.38419e-07, 1.19209e-07, -0.409 )
+mesh = SubResource( 9 )
+material/0 = SubResource( 6 )
+
+[node name="elbow" type="Position3D" parent="Mesh/torso/left/upper"]
+transform = Transform( 0.226659, -0.910953, 0.344657, -0.209684, -0.391209, -0.896096, 0.951135, 0.130839, -0.279684, -0.0118132, -0.00972188, -0.410127 )
+
+[node name="hand" type="MeshInstance" parent="Mesh/torso/left/upper/elbow"]
+transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
+mesh = SubResource( 10 )
+material/0 = SubResource( 6 )
+
+[node name="right" type="Position3D" parent="Mesh/torso"]
+transform = Transform( -0.990061, 0.0435251, 0.133732, 0.128101, 0.671524, 0.729825, -0.0580381, 0.739702, -0.670426, 0.00324076, 3.13388, 0.3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="upper" type="MeshInstance" parent="Mesh/torso/right"]
+transform = Transform( 1, 4.47035e-08, 0, 4.47035e-08, 1, 0, -2.98023e-08, -2.98023e-08, 1, 2.38419e-07, 1.19209e-07, -0.409 )
+mesh = SubResource( 9 )
+material/0 = SubResource( 6 )
+
+[node name="elbow" type="Position3D" parent="Mesh/torso/right/upper"]
+transform = Transform( -0.761415, 0.588183, 0.272561, -0.644929, -0.644685, -0.410424, -0.0656891, -0.488284, 0.870211, -0.00837255, -0.00542808, -0.410209 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="hand" type="MeshInstance" parent="Mesh/torso/right/upper/elbow"]
+transform = Transform( 1, 0, -5.96046e-08, -7.45058e-09, 1, -2.42144e-08, 2.98023e-08, 0, 1, -0.0154518, -0.0206649, -0.403422 )
+mesh = SubResource( 10 )
 material/0 = SubResource( 6 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
