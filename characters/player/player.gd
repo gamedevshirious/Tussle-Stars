@@ -8,7 +8,7 @@ const MAX_FALL_SPEED = 30
 const H_LOOK_SENS = .1
 const V_LOOK_SENS = .1
 
-onready var tpcam = $TPCamera
+onready var tpcam = $CameraBase/TPCamera
 onready var fpcam = $Mesh/head/head/FPCamera
 var cam
 var zoomed_in = false

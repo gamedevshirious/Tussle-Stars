@@ -29,16 +29,17 @@ func _init():
 	_self = get_parent().get_parent()
 	mesh = _self.get_node("Mesh")
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _input(event):
-	if event is InputEventMouseMotion:
-		_self.cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
-		_self.cam.rotation_degrees.x = clamp(_self.cam.rotation_degrees.x, -90, 90)
+#
+#func _input(event):
+#	if event is InputEventMouseMotion:
+#		_self.cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
+#		_self.cam.rotation_degrees.x = clamp(_self.cam.rotation_degrees.x, -90, 90)
+	
 
 func move(delta):
-	var screen_pos = get_viewport().get_camera().unproject_position(_self.global_transform.origin)
-	var mouse_pos = get_viewport().get_mouse_position()
-	var angle = screen_pos.angle_to_point(mouse_pos)
+#	var screen_pos = get_viewport().get_camera().unproject_position(_self.global_transform.origin)
+#	var mouse_pos = get_viewport().get_mouse_position()
+#	var angle = screen_pos.angle_to_point(mouse_pos)
 #	_self.rotation.y = -angle 
 	
 	var motionTarget = Vector2 (Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right"),
@@ -64,7 +65,7 @@ func move(delta):
 	
 	if motionTarget.length() > 0.01:
 		#Rotates the charcter to the direction movement
-		rotateCharacter(-direction, delta)
+		rotateCharacter(direction, delta)
 	
 	velocity = _self.move_and_slide(velocity, Vector3(0, 1, 0))
 	
@@ -81,8 +82,8 @@ func move(delta):
 	
 func rotateCharacter(direction, delta):
 	var q_from = Quat(orientation.basis)
-	var q_to = Quat(Transform().looking_at(direction,Vector3.UP).basis)
+	var q_to = Quat(Transform().looking_at(direction, Vector3.UP).basis)
 	#Interpolate current rotation with desired one
 	orientation.basis = Basis(q_from.slerp(q_to, delta * ROTATIONINTERPOLATION))
 	orientation = orientation.orthonormalized() # orthonormalize orientation
-	mesh.global_transform.basis = orientation.basis
+	mesh.global_transform.basis = orientation.basis 
