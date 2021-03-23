@@ -42,6 +42,8 @@ func move(delta):
 #	var angle = screen_pos.angle_to_point(mouse_pos)
 #	_self.rotation.y = -angle 
 	
+#	velocity = Vector3()
+	
 	var motionTarget = Vector2 (Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right"),
 							Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up"))
 	var moveAmount = motionTarget.length()
@@ -67,18 +69,28 @@ func move(delta):
 		#Rotates the charcter to the direction movement
 		rotateCharacter(direction, delta)
 	
-	velocity = _self.move_and_slide(velocity, Vector3(0, 1, 0))
-	
 	var grounded = _self.is_on_floor()
 	velocity.y -= GRAVITY
+	
 	var just_jumped = false
-	if grounded and Input.is_action_just_pressed("ui_accept"):
+	
+	if Input.is_action_just_pressed("jump"):
+		print_debug(grounded)
 		just_jumped = true
 		velocity.y = JUMP_FORCE
-	if grounded and velocity.y <= 0:
-		velocity.y = -0.1
-	if velocity.y < -MAX_FALL_SPEED:
-		velocity.y = -MAX_FALL_SPEED
+	
+	if Input.is_action_just_pressed("change_camera"):
+		print_debug(velocity)
+	
+#	if grounded and velocity.y <= 0:
+#		velocity.y = -0.1
+#	if velocity.y < -MAX_FALL_SPEED:
+#		velocity.y = -MAX_FALL_SPEED
+	
+#	velocity = velocity.normalized()
+	velocity = _self.move_and_slide(velocity)
+	
+	
 	
 func rotateCharacter(direction, delta):
 	var q_from = Quat(orientation.basis)

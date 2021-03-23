@@ -70,21 +70,21 @@ func select_script():
 		$scripts/abilities.set_script(load("res://characters/heroes/"+my_info["hero"]+"/abilities.gd"))
 
 
-
-func _input(event):
-	if is_network_master():
-		if event.is_action_pressed("change_camera"):
-			cam = fpcam if cam != fpcam else tpcam
-			cam.current = true
-			zoomed_in = false if cam != fpcam else true
-			
+#
+#func _input(event):
+##	if is_network_master():
+##		if event.is_action_pressed("change_camera"):
+##			cam = fpcam if cam != fpcam else tpcam
+##			cam.current = true
+##			zoomed_in = false if cam != fpcam else true
+#
 #		if event is InputEventMouseMotion or event is InputEventScreenDrag:
 #			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
 #			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
 #	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
-##			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
-##			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
-#			rotate_y(event.relative.x * -.01)
+#			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
+#			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
+##			rotate_y(event.relative.x * -.01)
 
 
 func _process(delta):
