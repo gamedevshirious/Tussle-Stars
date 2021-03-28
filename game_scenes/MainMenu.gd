@@ -31,6 +31,7 @@ func _process(delta):
 	
 
 func _ready():
+	
 	globals.player_name = globals.save_game["player_name"]
 	$PlayerNameLabel.text = globals.player_name
 	
@@ -78,6 +79,10 @@ func load_shape():
 #	load_curr_hero()
 
 func _on_Multiplayer_pressed():
+#	var world = load("res://game_scenes/levels/World.tscn").instance()
+#	get_tree().change_scene_to(world)
+#
+	
 	globals.mode = "multiplayer"
 # warning-ignore:return_value_discarded
 	get_tree().change_scene_to(load("res://game_scenes/root.tscn"))

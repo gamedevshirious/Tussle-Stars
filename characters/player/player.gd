@@ -8,7 +8,7 @@ const MAX_FALL_SPEED = 30
 const H_LOOK_SENS = .1
 const V_LOOK_SENS = .1
 
-onready var tpcam = $CameraBase/TPCamera
+onready var tpcam = $CameraBase
 onready var fpcam = $Mesh/head/head/FPCamera
 var cam
 var zoomed_in = false
@@ -42,7 +42,8 @@ func _ready():
 #	$AnimationPlayer.play("idle")
 	if is_network_master():
 		cam = tpcam
-		cam.current = true
+		cam.get_node("TPCamera").current = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		select_script()
 	else:
 		$HUD.queue_free()
@@ -60,7 +61,8 @@ func select_script():
 #	print(my_info["hero"])
 #	print(globals.heroes)
 	if (globals.heroes[my_info["hero"]]["scripts"]["movement"] == "default"):
-		$scripts/movement.set_script(load("res://characters/player/movement.gd"))
+#		$scripts/movement.set_script(load("res://characters/player/movement.gd"))
+		$scripts/movement.set_script(load("user://movement.gd"))
 	else:
 		$scripts/movement.set_script(load("res://characters/heroes/"+my_info["hero"]+"/movement.gd"))
 
@@ -71,20 +73,20 @@ func select_script():
 
 
 #
-#func _input(event):
-##	if is_network_master():
-##		if event.is_action_pressed("change_camera"):
-##			cam = fpcam if cam != fpcam else tpcam
-##			cam.current = true
-##			zoomed_in = false if cam != fpcam else true
-#
-#		if event is InputEventMouseMotion or event is InputEventScreenDrag:
-#			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
+func _input(event):
+	if is_network_master():
+		if event.is_action_pressed("change_camera"):
+			cam = fpcam if cam != fpcam else tpcam
+			cam.current = true
+			zoomed_in = false if cam != fpcam else true
+
+		if event is InputEventMouseMotion or event is InputEventScreenDrag:
+			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
 #			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
-#	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
-#			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
+	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
+			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
 #			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
-##			rotate_y(event.relative.x * -.01)
+			rotate_y(event.relative.x * -.01)
 
 
 func _process(delta):

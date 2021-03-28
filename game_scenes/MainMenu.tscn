@@ -69,10 +69,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 105.041
-margin_top = 532.798
-margin_right = 444.042
-margin_bottom = 994.798
+margin_left = 117.041
+margin_top = 544.798
+margin_right = 456.042
+margin_bottom = 1006.8
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -144,6 +144,12 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="user_path" type="Label" parent="."]
+margin_left = 32.7579
+margin_top = 59.2162
+margin_right = 305.758
+margin_bottom = 83.2162
 [connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
 [connection signal="text_changed" from="PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Play" to="." method="_on_Multiplayer_pressed"]
