@@ -69,10 +69,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 117.041
-margin_top = 544.798
-margin_right = 456.042
-margin_bottom = 1006.8
+margin_left = 121.041
+margin_top = 548.798
+margin_right = 460.042
+margin_bottom = 1010.8
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
