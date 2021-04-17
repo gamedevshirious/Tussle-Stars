@@ -9,7 +9,7 @@ const H_LOOK_SENS = .1
 const V_LOOK_SENS = .1
 
 onready var tpcam = $CameraBase
-onready var fpcam = $Mesh/head/head/FPCamera
+onready var fpcam = $Mesh/head/head/CameraBase
 var cam
 var zoomed_in = false
 
@@ -44,10 +44,11 @@ func _ready():
 		cam = tpcam
 		cam.get_node("TPCamera").current = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		select_script()
 	else:
 		$HUD.queue_free()
-		$CameraBase.queue_free()
+		tpcam.queue_free()
+		fpcam.queue_free()
+	select_script()
 		
 	var rgb = my_info["color"].split(',') 
 
@@ -56,13 +57,15 @@ func _ready():
 	for node in meshes:
 		get_node(node).set_surface_material(0, material)
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	$DirectionalLight.queue_free()
 
 func select_script():
 #	print(my_info["hero"])
 #	print(globals.heroes)
 	if (globals.heroes[my_info["hero"]]["scripts"]["movement"] == "default"):
-#		$scripts/movement.set_script(load("res://characters/player/movement.gd"))
-		$scripts/movement.set_script(load("user://movement.gd"))
+		$scripts/movement.set_script(load("res://characters/player/movement.gd"))
+#		$scripts/movement.set_script(load("user://movement.gd"))
 	else:
 		$scripts/movement.set_script(load("res://characters/heroes/"+my_info["hero"]+"/movement.gd"))
 
@@ -76,9 +79,14 @@ func select_script():
 func _input(event):
 	if is_network_master():
 		if event.is_action_pressed("change_camera"):
-			cam = fpcam if cam != fpcam else tpcam
-			cam.current = true
-			zoomed_in = false if cam != fpcam else true
+			if cam != fpcam:
+				cam = fpcam 
+				cam.get_node("FPCamera").current = true
+			else:
+				cam = tpcam
+				cam.get_node("TPCamera").current = true
+			
+#			zoomed_in = false if cam != fpcam else true
 
 		if event is InputEventMouseMotion or event is InputEventScreenDrag:
 			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
@@ -92,13 +100,15 @@ func _input(event):
 func _process(delta):
 	move(delta)
 	
-	$Mesh/torso/Muzzle.rotation_degrees.x = cam.rotation_degrees.x
+	# $Mesh/torso/Muzzle.rotation_degrees.x = cam.rotation_degrees.x
 #	$CameraBase/Crosshair.visible = zoomed_in
 func move(delta):
 	if is_network_master():
 		$scripts/movement.move(delta)
 
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_pressed("shoot"):
+			if cam != fpcam:
+				$scripts/movement.reset(cam, delta)
 			rpc("quick")
 
 		rset("_move_vec", translation)

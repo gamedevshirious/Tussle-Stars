@@ -1,66 +1,35 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game_scenes/levels/World.gd" type="Script" id=1]
-[ext_resource path="res://characters/3D/ball/Ball.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=3]
-[ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=4]
-[ext_resource path="res://resources/terrain_data/data.hterrain" type="Resource" id=5]
-[ext_resource path="res://resources/sprites/textures/lava/Lava004_1K_Emission.jpg" type="Texture" id=6]
-[ext_resource path="res://resources/sprites/textures/lava/Lava004_1K_Normal.jpg" type="Texture" id=7]
-
-[sub_resource type="Resource" id=1]
-script = ExtResource( 4 )
-mode = 0
-textures = [ [ ExtResource( 6 ) ], [ ExtResource( 7 ) ] ]
+[ext_resource path="res://resources/sprites/3d/__stadium/Plaza de Toros de Torremocha.fbx" type="PackedScene" id=2]
 
 [node name="World" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="objects" type="Spatial" parent="."]
 
-[node name="Ball" parent="objects" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.525, 7.75693, 0 )
-
 [node name="players" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95186, 0 )
 
 [node name="spawn_points" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 266.916, 0, 301.976 )
+transform = Transform( 0.915941, 0.195064, -0.350718, -0.182446, 0.98079, 0.0690212, 0.357444, 0.000767767, 0.933934, 266.916, 288.978, 301.976 )
 
 [node name="0" type="Position3D" parent="spawn_points"]
-transform = Transform( 1, 0, 0, 0, 0.99918, 0.0404806, 0, -0.0404806, 0.99918, -15.5004, 126.85, -17.8079 )
+transform = Transform( 1, -5.55883e-09, 0, 4.39177e-08, 1, -2.16532e-08, 5.96046e-08, -1.93249e-08, 1, 100, 100, 0 )
 
 [node name="1" type="Position3D" parent="spawn_points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.1725, 5.67819, 31.1939 )
+transform = Transform( 1, -8.44011e-10, 0, 1.40572e-08, 1, -6.98492e-09, 2.98023e-08, 4.65661e-10, 1, -100, 100, 0 )
 
 [node name="2" type="Position3D" parent="spawn_points"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9094, 7.87568, 10.8143 )
 
 [node name="3" type="Position3D" parent="spawn_points"]
-transform = Transform( 1, 0, 0, 0, 0.99918, 0.0404806, 0, -0.0404806, 0.99918, 13.9094, 7.87568, 29.8263 )
+transform = Transform( 1, 0, 0, 0, 0.99918, 0.0404806, 0, -0.0404806, 0.99918, 0, 0, 0 )
 
 [node name="4" type="Position3D" parent="spawn_points"]
-transform = Transform( 1, 0, 0, 0, 0.99918, 0.0404806, 0, -0.0404806, 0.99918, -5.67589, 16.2529, -17.8079 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-visible = false
+[node name="DirectionalLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -69.6091, 94.3708, 48.3152 )
+omni_range = 4096.0
 
-[node name="HTerrain" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -256, 0, -256 )
-script = ExtResource( 3 )
-ambient_wind = 0.0
-lod_scale = 5.0
-map_scale = Vector3( 1, 1, 1 )
-_terrain_data = ExtResource( 5 )
-chunk_size = 64
-collision_enabled = true
-collision_layer = 1
-collision_mask = 1
-shader_type = "Classic4Lite"
-custom_shader = null
-custom_globalmap_shader = null
-texture_set = SubResource( 1 )
-shader_params/u_ground_uv_scale = 20
-shader_params/u_depth_blending = true
-shader_params/u_triplanar = false
-shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
+[node name="Plaza de Toros de Torremocha" parent="." instance=ExtResource( 2 )]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://game_scenes/helper/BGBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://multiplayer/lobby/Lobby.gd" type="Script" id=2]
@@ -16,16 +16,29 @@
 [ext_resource path="res://resources/sprites/game icons/light/multiplayer.png" type="Texture" id=14]
 [ext_resource path="res://resources/sprites/game icons/light/door.png" type="Texture" id=15]
 [ext_resource path="res://game_scenes/helper/BGCamera.tscn" type="PackedScene" id=16]
+[ext_resource path="res://resources/sprites/game icons/light/target.png" type="Texture" id=17]
+[ext_resource path="res://resources/sprites/game icons/dark/target.png" type="Texture" id=18]
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="InputEventAction" id=4]
+action = "training"
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="ShortCut" id=5]
+shortcut = SubResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
 size = 48
 font_data = ExtResource( 5 )
+
+[sub_resource type="InputEventKey" id=7]
+
+[sub_resource type="ShortCut" id=8]
+shortcut = SubResource( 7 )
 
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
@@ -63,19 +76,31 @@ size_flags_stretch_ratio = 0.1
 alignment = 1
 
 [node name="Name" type="LineEdit" parent="Lobbies/Host"]
-margin_right = 831.0
+margin_right = 778.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
-custom_styles/read_only = SubResource( 5 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/read_only = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 placeholder_text = "Lobby Name"
 
+[node name="Training" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 782.0
+margin_right = 832.0
+margin_bottom = 50.0
+shortcut = SubResource( 5 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Host" type="TextureButton" parent="Lobbies/Host"]
-margin_left = 835.0
-margin_right = 885.0
+margin_left = 836.0
+margin_right = 886.0
 margin_bottom = 50.0
 hint_tooltip = "Host Lobby"
 size_flags_stretch_ratio = 0.1
@@ -84,8 +109,8 @@ texture_pressed = ExtResource( 14 )
 texture_hover = ExtResource( 14 )
 
 [node name="Refresh" type="TextureButton" parent="Lobbies/Host"]
-margin_left = 889.0
-margin_right = 939.0
+margin_left = 890.0
+margin_right = 940.0
 margin_bottom = 50.0
 size_flags_stretch_ratio = 0.1
 texture_normal = ExtResource( 8 )
@@ -96,14 +121,14 @@ texture_hover = ExtResource( 13 )
 visible = false
 margin_left = 890.0
 margin_right = 940.0
-margin_bottom = 56.0
+margin_bottom = 50.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 11 )
 texture_hover = ExtResource( 11 )
 
 [node name="Quit" type="TextureButton" parent="Lobbies/Host"]
-margin_left = 943.0
-margin_right = 993.0
+margin_left = 944.0
+margin_right = 994.0
 margin_bottom = 50.0
 size_flags_stretch_ratio = 0.1
 texture_normal = ExtResource( 7 )
@@ -170,7 +195,7 @@ margin_left = 737.0
 margin_top = 417.0
 margin_right = 1001.0
 margin_bottom = 482.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -194,6 +219,7 @@ margin_left = -65.2449
 margin_top = -176.103
 margin_right = 60.7551
 margin_bottom = -65.1028
+shortcut = SubResource( 8 )
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 12 )
 texture_hover = ExtResource( 12 )
@@ -207,6 +233,7 @@ transform = Transform( 1.62921e-07, -1, 3.25841e-07, -1, -1.62921e-07, 0, 5.3086
 
 [node name="Camera" parent="CSGBox" instance=ExtResource( 16 )]
 transform = Transform( -0.00235105, -0.975953, -0.217968, -0.998441, 0.0144477, -0.0539204, 0.0557729, 0.217501, -0.974465, -5.86272, -1.00395, -11.586 )
+[connection signal="pressed" from="Lobbies/Host/Training" to="." method="_on_Training_pressed"]
 [connection signal="pressed" from="Lobbies/Host/Host" to="." method="_on_Host_pressed"]
 [connection signal="pressed" from="Lobbies/Host/Refresh" to="." method="_on_Refresh_pressed"]
 [connection signal="pressed" from="Lobbies/Host/CopyLink" to="." method="_on_CopyLink_pressed"]

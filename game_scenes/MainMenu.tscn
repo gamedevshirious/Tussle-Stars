@@ -69,10 +69,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 121.041
-margin_top = 548.798
-margin_right = 460.042
-margin_bottom = 1010.8
+margin_left = 84.7579
+margin_top = 508.0
+margin_right = 423.759
+margin_bottom = 970.002
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -92,10 +92,10 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -
 script = null
 
 [node name="PlayerNameLabel" type="LineEdit" parent="."]
-margin_left = 19.4315
-margin_top = 456.491
-margin_right = 359.432
-margin_bottom = 493.491
+margin_left = 60.7579
+margin_top = 435.37
+margin_right = 400.758
+margin_bottom = 472.37
 rect_rotation = 0.0487281
 custom_styles/focus = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
@@ -112,10 +112,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 839.892
-margin_top = 513.027
-margin_right = 948.892
-margin_bottom = 545.027
+margin_left = 866.0
+margin_top = 535.2
+margin_right = 975.0
+margin_bottom = 567.2
 custom_styles/hover = SubResource( 5 )
 custom_styles/pressed = SubResource( 6 )
 custom_styles/focus = SubResource( 7 )
@@ -132,12 +132,10 @@ __meta__ = {
 light_mask = -2147483647
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -43.4932
-margin_top = -21.4998
-margin_right = 375.507
-margin_bottom = 79.5002
+margin_right = 419.0
+margin_bottom = 101.0
 custom_fonts/font = SubResource( 11 )
-custom_colors/font_color = Color( 0.454902, 0.403922, 0.376471, 1 )
+custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
 text = "Tussle Stars"
 align = 1
 valign = 1
@@ -150,6 +148,9 @@ margin_left = 32.7579
 margin_top = 59.2162
 margin_right = 305.758
 margin_bottom = 83.2162
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.0936045, 0.995609, 0, -0.995609, -0.0936045, 0, 7.23195, -1.62557 )
 [connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
 [connection signal="text_changed" from="PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Play" to="." method="_on_Multiplayer_pressed"]

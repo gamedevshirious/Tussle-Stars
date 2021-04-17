@@ -67,7 +67,7 @@ func _on_LobbyEntry_selected(lobby):
 		$Lobbies/Host/Name.text = "Tell host to start ... reeeeeee"
 
 		gamestate.join_game(Gotm.lobby.host.address, my_info)
-		$CSGBox.queue_free()
+#		 $CSGBox.queue_free()
 #		join()
 #		emit_signal("joined")
 	else:
@@ -207,3 +207,20 @@ func _on_CopyLink_pressed():
 		print_debug(Gotm.lobby.invite_link)
 		OS.set_clipboard(Gotm.lobby.invite_link)
 
+
+
+func _on_Training_pressed():
+	in_lobby = true
+
+# warning-ignore:return_value_discarded
+#	$Background.hide()
+	$Lobbies/Host/Host.hide()
+	$Lobbies/Host/Name.editable = false
+	$Lobbies/Host/Refresh.hide()
+	$StartGame.show()
+	$Lobbies/Host/CopyLink.show()
+	$Lobbies/List/Title.hide()
+
+	gamestate.host_game(my_info)
+	gamestate.begin_game()
+	$CSGBox.queue_free()
