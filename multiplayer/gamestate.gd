@@ -175,6 +175,7 @@ func end_game():
 	emit_signal("game_ended")
 
 func _ready():
+	players.clear()
 # warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 # warning-ignore:return_value_discarded

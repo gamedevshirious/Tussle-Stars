@@ -67,7 +67,8 @@ func _on_LobbyEntry_selected(lobby):
 		$Lobbies/Host/Name.text = "Tell host to start ... reeeeeee"
 
 		gamestate.join_game(Gotm.lobby.host.address, my_info)
-#		 $CSGBox.queue_free()
+		if (get_node_or_null("CSGBox") != null):
+			$CSGBox.queue_free()
 #		join()
 #		emit_signal("joined")
 	else:
@@ -149,11 +150,20 @@ func refresh_player_list():
 	for child in get_node("PlayersList/Players").get_children():
 		child.queue_free()
 	var lbl = preload("res://game_scenes/helper/PlayerLabel.tscn").instance()
+	var rgb = globals.color.split(',') 
+	
 	lbl.text = str(gamestate.get_player_info())
+	lbl.modulate = Color(rgb[0], rgb[1], rgb[2], rgb[3])
 	get_node("PlayersList/Players").add_child(lbl)
 	for p in gamestate.players.keys():
 		var xlbl = lbl.duplicate()
 		xlbl.text = str(gamestate.players[p]["name"])
+		rgb = gamestate.players[p]["color"].split(',') 
+		print(players)
+		
+#		xlbl.set("custom_colors/font_color", Color(rgb[0], rgb[1], rgb[2], rgb[3]))
+#		xlbl.add_color_override("font_color", Color(rgb[0], rgb[1], rgb[2], rgb[3]))
+		xlbl.modulate =  Color(rgb[0], rgb[1], rgb[2], rgb[3])
 		get_node("PlayersList/Players").add_child(xlbl)
 
 #	get_node("Lobbies/List/Players").disabled=not get_tree().is_network_server()

@@ -87,12 +87,8 @@ func move(delta):
 		MOVE_SPEED = 12
 	
 	if Input.is_action_just_pressed("jump"):
-		print_debug(grounded)
 		just_jumped = true
 		velocity.y = JUMP_FORCE
-	
-	if Input.is_action_just_pressed("change_camera"):
-		print_debug(velocity)
 	
 #	if grounded and velocity.y <= 0:
 #		velocity.y = -0.1
@@ -104,9 +100,9 @@ func move(delta):
 	
 	
 	
-func rotateCharacter(direction, delta):
+func rotateCharacter(dir, delta):
 	var q_from = Quat(orientation.basis)
-	var q_to = Quat(Transform().looking_at(direction, Vector3.UP).basis)
+	var q_to = Quat(Transform().looking_at(dir, Vector3.UP).basis)
 	#Interpolate current rotation with desired one
 	orientation.basis = Basis(q_from.slerp(q_to, delta * ROTATIONINTERPOLATION))
 	orientation = orientation.orthonormalized() # orthonormalize orientation

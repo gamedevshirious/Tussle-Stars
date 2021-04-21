@@ -8,16 +8,22 @@ const MAX_FALL_SPEED = 30
 const H_LOOK_SENS = .1
 const V_LOOK_SENS = .1
 
-onready var tpcam = $CameraBase
-onready var fpcam = $Mesh/head/head/CameraBase
+onready var tpcam = $TPCameraBase
+onready var fpcam = $Mesh/head/head/FPCameraBase
 var cam
 var zoomed_in = false
 
-var y_velo = 0
-var move_vec = Vector3()
+var HP = 100
 
 puppet var _move_vec = Vector3()
 puppet var _rotation = Vector3()
+puppet var _mesh_rotation = Vector3()
+puppet var _hp = 100
+
+var world_point = Vector3(-1, -1, -1)
+
+onready var shoot_from = get_node("Mesh/torso/Muzzle")
+onready var crosshair = $TPCameraBase/Camera/cross
 
 var my_info = {}
 
@@ -42,23 +48,30 @@ func _ready():
 #	$AnimationPlayer.play("idle")
 	if is_network_master():
 		cam = tpcam
-		cam.get_node("TPCamera").current = true
+		cam.get_node("Camera").current = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		
+		$HealthBar/Viewport/ProgressBar.value = HP
 	else:
 		$HUD.queue_free()
 		tpcam.queue_free()
 		fpcam.queue_free()
+		$HealthBar.visible = false
 	select_script()
 		
-	var rgb = my_info["color"].split(',') 
+	var rgba = my_info["color"].split(',') 
+	update_color(rgba)
+	
+	
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	$DirectionalLight.queue_free()
 
+func update_color(rgb):
 	var material = $Mesh/head/head.get_surface_material(0).duplicate()
 	material.set_shader_param("base_color", Color(rgb[0], rgb[1], rgb[2], rgb[3]))
 	for node in meshes:
 		get_node(node).set_surface_material(0, material)
-#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	$DirectionalLight.queue_free()
 
 func select_script():
 #	print(my_info["hero"])
@@ -77,49 +90,90 @@ func select_script():
 
 #
 func _input(event):
-	if is_network_master():
-		if event.is_action_pressed("change_camera"):
-			if cam != fpcam:
-				cam = fpcam 
-				cam.get_node("FPCamera").current = true
-			else:
-				cam = tpcam
-				cam.get_node("TPCamera").current = true
-			
+	if not is_network_master():
+		return
+		
+	if event.is_action_pressed("change_camera"):
+		if cam != fpcam:
+			cam = fpcam 
+		else:
+			cam = tpcam
+		cam.get_node("Camera").current = true
+		
 #			zoomed_in = false if cam != fpcam else true
 
-		if event is InputEventMouseMotion or event is InputEventScreenDrag:
-			cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
+	if event is InputEventMouseMotion or event is InputEventScreenDrag:
+		cam.rotation_degrees.x -= event.relative.y * V_LOOK_SENS
 #			cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)# if cam == fpcam else clamp(cam.rotation_degrees.x, 0, 30)
-	#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
-			cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
+#		$CameraBase/Gun.rotation_degrees.z = cam.rotation_degrees.x
+		cam.rotation_degrees.y -= event.relative.x * H_LOOK_SENS
 #			cam.rotation_degrees.y = clamp(cam.rotation_degrees.y, -120, -60)
-			rotate_y(event.relative.x * -.01)
+		rotate_y(event.relative.x * -.01)
+#			ray.global_transform.origin = cam.get_node("Camera").project_ray_origin(event.position)
 
 
 func _process(delta):
 	move(delta)
+	sync_hp()
 	
 	# $Mesh/torso/Muzzle.rotation_degrees.x = cam.rotation_degrees.x
 #	$CameraBase/Crosshair.visible = zoomed_in
 func move(delta):
 	if is_network_master():
 		$scripts/movement.move(delta)
-
-		if Input.is_action_pressed("shoot"):
+		
+		if Input.is_action_just_pressed("shoot"):
 			if cam != fpcam:
 				$scripts/movement.reset(cam, delta)
-			rpc("quick")
+				
+			var shoot_origin = shoot_from.global_transform.origin
 
-		rset("_move_vec", translation)
-		rset("_rotation", rotation_degrees)
+			var ch_pos = crosshair.rect_position + crosshair.rect_size * 0.5
+			var ray_from = cam.get_node("Camera").project_ray_origin(ch_pos)
+			var ray_dir = cam.get_node("Camera").project_ray_normal(ch_pos)
+
+			var shoot_target
+			var col = get_world().direct_space_state.intersect_ray(ray_from, ray_from + ray_dir * 1000, [self], 0b11)
+			if col.empty():
+				shoot_target = ray_from + ray_dir * 1000
+			else:
+				shoot_target = col.position
+			var shoot_dir = (shoot_target - shoot_origin).normalized()		
+			
+			rpc("quick", shoot_origin, shoot_dir)
+			
+#			cam.get_node("Camera").add_trauma(0.35)
+		
+		
+		rset_unreliable("_move_vec", translation)
+		rset_unreliable("_rotation", rotation_degrees)
+		rset_unreliable("_mesh_rotation", $Mesh.rotation_degrees)
 	else:
 		translation = _move_vec
 		rotation_degrees = _rotation
+		$Mesh.rotation_degrees = _mesh_rotation
 
-sync func quick():
-	$StatusLabel.text = "shoot"
-	$scripts/abilities.quick(self)
+sync func quick(shoot_origin, shoot_dir):
+	$scripts/abilities.quick(self, shoot_origin, shoot_dir)
+
+func damage(hp, _status):
+	HP -= hp
+	
+	if HP <= 0:
+		var rgba = ["255", "255", "255", "1"]
+		update_color(rgba)
+		
+		$head.disabled = true
+		$body.disabled = true
+	
+	$HealthBar/Viewport/ProgressBar.value = HP
+
+sync func sync_hp():
+	if is_network_master():
+		rset("_hp", HP)
+	else:
+		HP = _hp
+
 
 #func play_anim(name):
 #	pass

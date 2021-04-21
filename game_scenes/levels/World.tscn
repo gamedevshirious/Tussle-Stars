@@ -32,4 +32,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -69.6091, 94.3708, 48.3152 )
 omni_range = 4096.0
 
 [node name="Plaza de Toros de Torremocha" parent="." instance=ExtResource( 2 )]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -100, 0 )

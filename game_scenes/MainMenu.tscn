@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://game_scenes/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://resources/shaders/cel.shader" type="Shader" id=2]
@@ -38,7 +38,8 @@ shader_param/rim_spread = 0.5
 shader_param/shadow_threshold = 0.7
 shader_param/shadow_softness = 0.1
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="ViewportTexture" id=3]
+viewport_path = NodePath("HealthBar/Viewport")
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
@@ -52,11 +53,13 @@ shader_param/shadow_softness = 0.1
 
 [sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="DynamicFont" id=11]
 size = 32
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 size = 32
 use_filter = true
 font_data = ExtResource( 4 )
@@ -69,10 +72,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 84.7579
-margin_top = 508.0
-margin_right = 423.759
-margin_bottom = 970.002
+margin_left = 44.7579
+margin_top = 496.0
+margin_right = 383.759
+margin_bottom = 958.002
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -91,14 +94,23 @@ material = SubResource( 2 )
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -0.844639 )
 script = null
 
+[node name="HealthBar" parent="player" index="1"]
+visible = false
+
+[node name="Sprite3D" parent="player/HealthBar" index="1"]
+texture = SubResource( 3 )
+
+[node name="cross" parent="player/TPCameraBase/Camera" index="0"]
+visible = false
+
 [node name="PlayerNameLabel" type="LineEdit" parent="."]
-margin_left = 60.7579
-margin_top = 435.37
-margin_right = 400.758
-margin_bottom = 472.37
+margin_left = 50.7579
+margin_top = 447.97
+margin_right = 390.758
+margin_bottom = 484.97
 rect_rotation = 0.0487281
-custom_styles/focus = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 text = " "
 placeholder_text = "Player Name"
 caret_blink = true
@@ -112,16 +124,16 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 866.0
-margin_top = 535.2
-margin_right = 975.0
-margin_bottom = 567.2
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 7 )
-custom_styles/disabled = SubResource( 8 )
-custom_styles/normal = SubResource( 9 )
-custom_fonts/font = SubResource( 10 )
+margin_left = 823.163
+margin_top = 504.962
+margin_right = 932.163
+margin_bottom = 536.962
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/disabled = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
 text = "Play."
 __meta__ = {
@@ -132,9 +144,10 @@ __meta__ = {
 light_mask = -2147483647
 anchor_left = 0.5
 anchor_right = 0.5
-margin_right = 419.0
+margin_left = -31.498
+margin_right = 387.502
 margin_bottom = 101.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
 text = "Tussle Stars"
 align = 1
@@ -144,13 +157,15 @@ __meta__ = {
 }
 
 [node name="user_path" type="Label" parent="."]
-margin_left = 32.7579
-margin_top = 59.2162
-margin_right = 305.758
-margin_bottom = 83.2162
+margin_left = 50.7579
+margin_top = 453.571
+margin_right = 323.758
+margin_bottom = 477.571
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.0936045, 0.995609, 0, -0.995609, -0.0936045, 0, 7.23195, -1.62557 )
 [connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
 [connection signal="text_changed" from="PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Play" to="." method="_on_Multiplayer_pressed"]
+
+[editable path="player"]
