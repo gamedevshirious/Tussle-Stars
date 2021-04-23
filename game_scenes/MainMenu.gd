@@ -27,9 +27,14 @@ func _process(delta):
 		$Play.set("custom_colors/font_color", Color(255, 255, 255, 255))
 	else:
 		$Play.set("custom_colors/font_color", Color("00cfff"))
+<<<<<<< HEAD
 	
 	if Input.is_action_just_pressed("ui_down"):
 		globals.show_notification("Hello")
+=======
+
+	
+>>>>>>> 62c6cc45bd272c1ffeeb8402c3fcac143aa19039
 
 func _ready():
 	

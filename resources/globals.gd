@@ -14,12 +14,15 @@ var save_game = {
 	"color": "ffffff"
 }
 
+<<<<<<< HEAD
 func show_notification(msg):
 	var n = load("res://game_scenes/ui/Notif.tscn").instance()
 	add_child(n)
 	n.show_notification(msg)
 	
 
+=======
+>>>>>>> 62c6cc45bd272c1ffeeb8402c3fcac143aa19039
 func _ready():
 	load_data()
 
