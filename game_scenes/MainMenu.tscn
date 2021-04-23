@@ -1,0 +1,171 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://game_scenes/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://resources/shaders/cel.shader" type="Shader" id=2]
+[ext_resource path="res://resources/themes/default.tres" type="Theme" id=3]
+[ext_resource path="res://resources/fonts/perfect-dark-brk/pdark.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game_scenes/helper/MyColorPicker/MyColorPicker.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=7]
+[ext_resource path="res://game_scenes/helper/BGBox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_scenes/helper/BGCamera.tscn" type="PackedScene" id=9]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 7 )
+shader_param/outline_thickness = 0.03
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=2]
+next_pass = SubResource( 1 )
+shader = ExtResource( 2 )
+shader_param/use_shade = false
+shader_param/use_specular = false
+shader_param/use_rim = false
+shader_param/use_light = false
+shader_param/use_shadow = false
+shader_param/base_color = Color( 0, 0.811765, 1, 1 )
+shader_param/shade_color = Color( 1, 1, 1, 1 )
+shader_param/specular_tint = Color( 0.75, 0.75, 0.75, 0.75 )
+shader_param/rim_tint = Color( 0.75, 0.75, 0.75, 0.75 )
+shader_param/shade_threshold = 0.0
+shader_param/shade_softness = 0.01
+shader_param/specular_glossiness = 1.0
+shader_param/specular_threshold = 0.5
+shader_param/specular_softness = 0.1
+shader_param/rim_threshold = 0.25
+shader_param/rim_softness = 0.0
+shader_param/rim_spread = 0.5
+shader_param/shadow_threshold = 0.7
+shader_param/shadow_softness = 0.1
+
+[sub_resource type="ViewportTexture" id=3]
+viewport_path = NodePath("HealthBar/Viewport")
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="DynamicFont" id=11]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 32
+use_filter = true
+font_data = ExtResource( 4 )
+
+[node name="MainMenu" type="Control"]
+theme = ExtResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
+margin_left = 52.7579
+margin_top = 504.0
+margin_right = 391.759
+margin_bottom = 966.002
+rect_scale = Vector2( 1, 0.2 )
+
+[node name="CSGBox" parent="." instance=ExtResource( 8 )]
+
+[node name="Camera" parent="CSGBox" instance=ExtResource( 9 )]
+transform = Transform( 0.00235138, 0.975953, 0.217968, 0.998441, -0.0144479, 0.0539197, 0.0557723, 0.217501, -0.974465, 5.86272, 0.850852, -11.586 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="."]
+transform = Transform( -0.977709, 0.0299813, 0.207821, 0.0286664, -0.961427, 0.273564, 0.208006, 0.273423, 0.939136, -0.0283727, -1, -1.25115 )
+radius = 2.32894
+sides = 64
+smooth_faces = false
+material = SubResource( 2 )
+
+[node name="player" parent="." instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -0.844639 )
+script = null
+
+[node name="HealthBar" parent="player" index="1"]
+visible = false
+
+[node name="Sprite3D" parent="player/HealthBar" index="1"]
+texture = SubResource( 3 )
+
+[node name="cross" parent="player/TPCameraBase/Camera" index="0"]
+visible = false
+
+[node name="PlayerNameLabel" type="LineEdit" parent="."]
+margin_left = 50.7579
+margin_top = 447.97
+margin_right = 390.758
+margin_bottom = 484.97
+rect_rotation = 0.0487281
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+text = " "
+placeholder_text = "Player Name"
+caret_blink = true
+caret_blink_speed = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 823.163
+margin_top = 504.962
+margin_right = 932.163
+margin_bottom = 536.962
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/disabled = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
+text = "Play."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+light_mask = -2147483647
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -31.498
+margin_right = 387.502
+margin_bottom = 101.0
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
+text = "Tussle Stars"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="user_path" type="Label" parent="."]
+margin_left = 50.7579
+margin_top = 453.571
+margin_right = 323.758
+margin_bottom = 477.571
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.0936045, 0.995609, 0, -0.995609, -0.0936045, 0, 7.23195, -1.62557 )
+[connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
+[connection signal="text_changed" from="PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
+[connection signal="pressed" from="Play" to="." method="_on_Multiplayer_pressed"]
+
+[editable path="player"]

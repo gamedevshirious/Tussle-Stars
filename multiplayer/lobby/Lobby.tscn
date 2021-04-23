@@ -1,0 +1,243 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://game_scenes/helper/BGBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://multiplayer/lobby/Lobby.gd" type="Script" id=2]
+[ext_resource path="res://resources/sprites/game icons/dark/forward.png" type="Texture" id=3]
+[ext_resource path="res://multiplayer/lobby/resources/fonts/RobotoLight-24px.tres" type="DynamicFont" id=4]
+[ext_resource path="res://resources/fonts/RobotoMono-Bold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://resources/sprites/game icons/dark/multiplayer.png" type="Texture" id=6]
+[ext_resource path="res://resources/sprites/game icons/dark/door.png" type="Texture" id=7]
+[ext_resource path="res://resources/sprites/game icons/dark/return.png" type="Texture" id=8]
+[ext_resource path="res://resources/sprites/game icons/dark/share1.png" type="Texture" id=9]
+[ext_resource path="res://multiplayer/lobby/components/LobbyEntry/LobbyEntry.tscn" type="PackedScene" id=10]
+[ext_resource path="res://resources/sprites/game icons/light/share1.png" type="Texture" id=11]
+[ext_resource path="res://resources/sprites/game icons/light/forward.png" type="Texture" id=12]
+[ext_resource path="res://resources/sprites/game icons/light/return.png" type="Texture" id=13]
+[ext_resource path="res://resources/sprites/game icons/light/multiplayer.png" type="Texture" id=14]
+[ext_resource path="res://resources/sprites/game icons/light/door.png" type="Texture" id=15]
+[ext_resource path="res://game_scenes/helper/BGCamera.tscn" type="PackedScene" id=16]
+[ext_resource path="res://resources/sprites/game icons/light/target.png" type="Texture" id=17]
+[ext_resource path="res://resources/sprites/game icons/dark/target.png" type="Texture" id=18]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="InputEventAction" id=4]
+action = "training"
+
+[sub_resource type="ShortCut" id=5]
+shortcut = SubResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+font_data = ExtResource( 5 )
+
+[sub_resource type="InputEventKey" id=7]
+
+[sub_resource type="ShortCut" id=8]
+shortcut = SubResource( 7 )
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lobbies" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -15.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="HBoxContainer" parent="Lobbies"]
+margin_right = 994.0
+margin_bottom = 50.0
+size_flags_stretch_ratio = 0.1
+alignment = 1
+
+[node name="Name" type="LineEdit" parent="Lobbies/Host"]
+margin_right = 778.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+custom_styles/read_only = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+placeholder_text = "Lobby Name"
+
+[node name="Training" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 782.0
+margin_right = 832.0
+margin_bottom = 50.0
+shortcut = SubResource( 5 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 836.0
+margin_right = 886.0
+margin_bottom = 50.0
+hint_tooltip = "Host Lobby"
+size_flags_stretch_ratio = 0.1
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 14 )
+
+[node name="Refresh" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 890.0
+margin_right = 940.0
+margin_bottom = 50.0
+size_flags_stretch_ratio = 0.1
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 13 )
+
+[node name="CopyLink" type="TextureButton" parent="Lobbies/Host"]
+visible = false
+margin_left = 890.0
+margin_right = 940.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 11 )
+
+[node name="Quit" type="TextureButton" parent="Lobbies/Host"]
+margin_left = 944.0
+margin_right = 994.0
+margin_bottom = 50.0
+size_flags_stretch_ratio = 0.1
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 15 )
+
+[node name="List" type="VBoxContainer" parent="Lobbies"]
+margin_top = 54.0
+margin_right = 994.0
+margin_bottom = 537.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.85
+
+[node name="Title" type="Label" parent="Lobbies/List"]
+margin_right = 994.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Click on Lobby to join ... "
+
+[node name="Entries" type="VBoxContainer" parent="Lobbies/List"]
+margin_top = 18.0
+margin_right = 994.0
+margin_bottom = 483.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Lobbies"]
+margin_top = 541.0
+margin_right = 994.0
+margin_bottom = 570.0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Multiplayer powered  by gotm.io"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="LobbyEntry" parent="." instance=ExtResource( 10 )]
+visible = false
+button_mask = 0
+
+[node name="PlayersList" type="Control" parent="."]
+margin_left = 16.0
+margin_top = 109.0
+margin_right = 991.0
+margin_bottom = 546.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayersList"]
+margin_left = 737.0
+margin_top = 417.0
+margin_right = 1001.0
+margin_bottom = 482.0
+custom_fonts/font = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Players" type="VBoxContainer" parent="PlayersList"]
+margin_left = -3.62158
+margin_right = 977.378
+margin_bottom = 447.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartGame" type="TextureButton" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -65.2449
+margin_top = -176.103
+margin_right = 60.7551
+margin_bottom = -65.1028
+shortcut = SubResource( 8 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 12 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CSGBox" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.62921e-07, -1, 3.25841e-07, -1, -1.62921e-07, 0, 5.30863e-14, -3.25841e-07, -1, -0.895422, -2.70272, -8.36488 )
+
+[node name="Camera" parent="CSGBox" instance=ExtResource( 16 )]
+transform = Transform( -0.00235105, -0.975953, -0.217968, -0.998441, 0.0144477, -0.0539204, 0.0557729, 0.217501, -0.974465, -5.86272, -1.00395, -11.586 )
+[connection signal="pressed" from="Lobbies/Host/Training" to="." method="_on_Training_pressed"]
+[connection signal="pressed" from="Lobbies/Host/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="Lobbies/Host/Refresh" to="." method="_on_Refresh_pressed"]
+[connection signal="pressed" from="Lobbies/Host/CopyLink" to="." method="_on_CopyLink_pressed"]
+[connection signal="pressed" from="Lobbies/Host/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="timeout" from="Timer" to="." method="refresh"]
+[connection signal="selected" from="LobbyEntry" to="." method="_on_LobbyEntry_selected"]
+[connection signal="pressed" from="StartGame" to="." method="_on_StartGame_pressed"]

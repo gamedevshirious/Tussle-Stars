@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="Label" type="Label"]
+modulate = Color( 0.945098, 0.286275, 0.286275, 1 )
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Hello"
+__meta__ = {
+"_edit_use_anchors_": false
+}

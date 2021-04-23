@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="NoiseTexture" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 383.712, 13.0726 )
+
+[node name="Floor" type="StaticBody2D"]
+collision_layer = 3
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.5, 0.05 )
+texture = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
