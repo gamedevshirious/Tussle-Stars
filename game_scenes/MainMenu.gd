@@ -22,19 +22,14 @@ var meshes = [
 func _process(delta):
 	$player.rotate_y(.5 * delta)
 	
-	
 	if $Play.is_hovered():
 		$Play.set("custom_colors/font_color", Color(255, 255, 255, 255))
 	else:
 		$Play.set("custom_colors/font_color", Color("00cfff"))
-<<<<<<< HEAD
+
 	
 	if Input.is_action_just_pressed("ui_down"):
 		globals.show_notification("Hello")
-=======
-
-	
->>>>>>> 62c6cc45bd272c1ffeeb8402c3fcac143aa19039
 
 func _ready():
 	
@@ -44,11 +39,8 @@ func _ready():
 	$CSGBox/Camera.current = true
 	
 #	$ShadeColorPicker.color = globals.save_game["color"]
-	var rgb = globals.color.split(',') 
-	
-	
+	var rgb = globals.color.split(',')
 	_on_ShadeColorPicker_color_changed(Color(rgb[0], rgb[1], rgb[2], rgb[3]))
-
 
 	$player.get_node("HUD").queue_free()
 
