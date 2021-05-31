@@ -23,20 +23,21 @@ func _process(delta):
 	$player.rotate_y(.5 * delta)
 	
 	if $Play.is_hovered():
-		$Play.set("custom_colors/font_color", Color(255, 255, 255, 255))
+		$Play.set("ctom_colors/font_color", Color(255, 255, 255, 255))
 	else:
 		$Play.set("custom_colors/font_color", Color("00cfff"))
 
-	
-	if Input.is_action_just_pressed("ui_down"):
-		globals.show_notification("Hello")
-
-func _ready():
+func _ready():	
+	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	globals.player_name = globals.save_game["player_name"]
 	$PlayerNameLabel.text = globals.player_name
 	
 	$CSGBox/Camera.current = true
+	
+#	get_tree().connect("connection_succeeded", self, "_start_game")
+	
 	
 #	$ShadeColorPicker.color = globals.save_game["color"]
 	var rgb = globals.color.split(',')
@@ -59,6 +60,8 @@ func load_shape():
 			heroes.append(file)
 
 	dir.list_dir_end()
+
+
 	# load_curr_hero()
 #	for i in $heros.get_item_count():
 #		$heros.remove_item(0)
@@ -80,7 +83,8 @@ func _on_Multiplayer_pressed():
 #	var world = load("res://game_scenes/levels/World.tscn").instance()
 #	get_tree().change_scene_to(world)
 #
-	
+	globals.peer = null
+	globals.show_notification("Let the play begin!")
 	globals.mode = "multiplayer"
 # warning-ignore:return_value_discarded
 	get_tree().change_scene_to(load("res://game_scenes/root.tscn"))
@@ -101,5 +105,122 @@ func _on_ShadeColorPicker_color_changed(color):
 	material.set_shader_param("base_color", color)
 	for node in meshes:
 		get_node("player/" + node).set_surface_material(0, material)
+
+func _on_Deathmatch_pressed():
+	var my_info = {
+		"name": globals.player_name, "hero": globals.curr_hero,
+		"color": globals.color,
+		"network_id": str(get_tree().get_network_unique_id())
+	}
+	
+	var fetch = GotmLobbyFetch.new()
+	var lobbies = yield(fetch.first(1), "completed")
+	for lobby in lobbies:
+		print_debug(lobby.id)
+		
+	$Deathmatch.text = "Starting ..."
+#	print_debug(lobbies[0].name)
+	if not lobbies.empty():
+		var success = yield(lobbies[0].join(), "completed")
+		if success:
+			gamestate.join_game(Gotm.lobby.host.address, my_info)
+			get_tree().change_scene_to(load("res://game_scenes/root.tscn"))
+			globals.show_notification("Starting soon...")
+#			lobbies[0].hidden = true
+	else:
+		print("lobby hosted")
+		Gotm.host_lobby()
+		Gotm.lobby.name = my_info["name"]
+		Gotm.lobby.hidden = false
+		gamestate.host_game(my_info)
+		
+#		Gotm.lobby.connect("peer_joined", self, "_start_game")
+		
+		$Deathmatch.disabled = true
+		$Deathmatch.text = "Starting ..."
+	
+#func _start_game(_peer):
+#	globals.show_notification("Player connected")
+#
+#	Gotm.lobby.hidden = true
+#	$GameStartTimer.start(2)
+#
+#func game_starts():
+##	Gotm.lobby.locked = true
+#	get_tree().change_scene_to(load("res://game_scenes/root.tscn"))
+#	gamestate.begin_game()
+##	print('\''+peer.address)
+##	print(str(get_tree().get_network_unique_id()))
+#
+#
+#func _on_GameStartTimer_timeout():
+#	game_starts()
+
+	
+
+
+func _on_FeedbackLink_pressed():
+	OS.shell_open("https://forms.gle/hxwssgdKHsnVRwqd6")
+
+func _on_Singleplayer_pressed():
+	globals.peer = null
+	globals.show_notification("Let the play begin!")
+	globals.mode = "singleplayer"
+# warning-ignore:return_value_discarded
+	get_tree().change_scene_to(load("res://game_scenes/levels/Dojo.tscn"))
+
+
+func _on_HostButton_pressed():
+	if globals.hosted:
+		$traditional_multiplayer/HostButton.text = "HOST"
+		get_tree().set_network_peer(null)
+		globals.hosted = false
+		$traditional_multiplayer/IPAddressTextBox.editable = true 
+		$traditional_multiplayer/JoinButton.disabled = false
+		return
 	
 	
+	var my_info = {
+		"name": globals.player_name, "hero": globals.curr_hero,
+		"color": globals.color,
+#		"network_id": str(get_tree().get_network_unique_id())
+	}
+	$traditional_multiplayer/HostButton.text = "HOSTing..."
+	gamestate.host_game(my_info)
+	$traditional_multiplayer/HTTPRequest.request("https://api.ipify.org/?format=json")
+#	$traditional_multiplayer/HTTPRequest.request("https://icanhazip.com/")
+
+	$traditional_multiplayer/IPAddressTextBox.editable = false
+	$traditional_multiplayer/JoinButton.disabled = true
+
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	if response_code == 200:	
+		var json = parse_json(body.get_string_from_utf8())
+		$traditional_multiplayer/HostButton.text = json.ip
+		OS.clipboard = json.ip
+	else:
+		$traditional_multiplayer/HostButton.text = "127.0.0.1"
+	
+	globals.hosted = true
+
+
+func _on_JoinButton_pressed():
+	if $traditional_multiplayer/IPAddressTextBox.text == "":
+		globals.show_notification("Enter IP")
+		return
+
+	var ip = $traditional_multiplayer/IPAddressTextBox.text
+	if not ip.is_valid_ip_address():
+		globals.show_notification("Enter Valid IP")
+		return
+
+	
+	var my_info = {
+		"name": globals.player_name, "hero": globals.curr_hero,
+		"color": globals.color,
+#		"network_id": str(get_tree().get_network_unique_id())
+	}
+	
+	gamestate.join_game($traditional_multiplayer/IPAddressTextBox.text, my_info)
+	get_tree().change_scene_to(load("res://game_scenes/root.tscn"))

@@ -4,6 +4,9 @@ var curr_hero = "kindler"
 var player_name = "PlayerName"
 var color = "0,0,0,1"
 var mode = "singleplayer"
+var peer = null
+
+var hosted = false
 
 #var players = {}
 
@@ -20,6 +23,7 @@ func show_notification(msg):
 	n.show_notification(msg)
 	
 func _ready():
+	randomize()
 	load_data()
 
 func save_data():

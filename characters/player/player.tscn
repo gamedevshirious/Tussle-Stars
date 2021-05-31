@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://characters/player/player.gd" type="Script" id=1]
+[ext_resource path="res://characters/player/multiplayer.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/buttons/right.png" type="Texture" id=2]
 [ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=3]
 [ext_resource path="res://resources/sprites/buttons/up.png" type="Texture" id=4]
@@ -278,6 +278,16 @@ position = Vector2( 786, 404 )
 normal = ExtResource( 7 )
 action = "shoot"
 
+[node name="LeaveButton" type="Button" parent="HUD"]
+margin_left = 847.0
+margin_top = 18.0
+margin_right = 996.0
+margin_bottom = 68.0
+text = "Leave"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HealthBar" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21794, 0 )
 
@@ -320,10 +330,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -25.0
-margin_top = -25.0
-margin_right = 25.0
-margin_bottom = 25.0
+margin_left = -11.5649
+margin_top = -12.6257
+margin_right = 13.4351
+margin_bottom = 12.3743
 texture = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -466,3 +476,5 @@ parameters/walk/add_amount = 0.0
 [node name="ground" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.158349, 0 )
 shape = SubResource( 20 )
+
+[connection signal="pressed" from="HUD/LeaveButton" to="." method="_on_LeaveButton_pressed"]

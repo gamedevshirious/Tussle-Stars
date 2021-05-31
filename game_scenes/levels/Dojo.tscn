@@ -62,3 +62,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.525, 7.75693, 0 )
 
 [node name="players" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95186, 0 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 50.4953, 0 )

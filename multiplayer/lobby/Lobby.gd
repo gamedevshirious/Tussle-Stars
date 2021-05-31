@@ -8,7 +8,7 @@ var in_lobby = false
 
 onready var _fetch = GotmLobbyFetch.new()
 func _ready():
-#	globals.players = {}
+	gamestate.players.clear()
 # warning-ignore:return_value_discarded
 	Gotm.connect("lobby_changed", self, "_on_Gotm_lobby_changed")
 # warning-ignore:return_value_discarded
@@ -25,10 +25,11 @@ func _ready():
 	my_info = {
 		"name": globals.player_name,
 		"hero": globals.curr_hero,
-		"color": globals.color
+		"color": globals.color,
+		"network_id": str(get_tree().get_network_unique_id())
 	}
 
-	print(my_info)
+#	print(my_info)
 
 #	$Game.hide()
 #	$LobbyEntry.hide()
@@ -47,9 +48,9 @@ func _on_game_ended():
 # warning-ignore:return_value_discarded
 	get_tree().change_scene("res://game_scenes/MainMenu.tscn")
 
-func _on_game_error():
-	print_debug("Game Error")
-	get_tree().paused = true
+func _on_game_error(error):
+	globals.show_notification(error)
+#	get_tree().paused = true
 
 func _on_LobbyEntry_selected(lobby):
 #	print_debug("joined")
@@ -67,6 +68,7 @@ func _on_LobbyEntry_selected(lobby):
 		$Lobbies/Host/Name.text = "Tell host to start ... reeeeeee"
 
 		gamestate.join_game(Gotm.lobby.host.address, my_info)
+#		gamestate.join_game("127.0.0.1", my_info)
 		if (get_node_or_null("CSGBox") != null):
 			$CSGBox.queue_free()
 #		join()
@@ -157,7 +159,7 @@ func refresh_player_list():
 	get_node("PlayersList/Players").add_child(lbl)
 	for p in gamestate.players.keys():
 		var xlbl = lbl.duplicate()
-		xlbl.text = str(gamestate.players[p]["name"])
+		xlbl.text = str(gamestate.players[p]["name"] + " | " + gamestate.players[p]["network_id"])
 		rgb = gamestate.players[p]["color"].split(',') 
 		print(players)
 		
@@ -207,8 +209,12 @@ func _on_StartGame_pressed():
 
 func _on_Quit_pressed():
 	in_lobby = false
+	
 	if in_lobby:
 		Gotm.lobby.leave()
+	
+	
+	refresh()
 	get_tree().change_scene("res://game_scenes/MainMenu.tscn")
 
 
@@ -224,13 +230,18 @@ func _on_Training_pressed():
 
 # warning-ignore:return_value_discarded
 #	$Background.hide()
-	$Lobbies/Host/Host.hide()
-	$Lobbies/Host/Name.editable = false
-	$Lobbies/Host/Refresh.hide()
-	$StartGame.show()
-	$Lobbies/Host/CopyLink.show()
-	$Lobbies/List/Title.hide()
+#	$Lobbies/Host/Host.hide()
+#	$Lobbies/Host/Name.editable = false
+#	$Lobbies/Host/Refresh.hide()
+#	$StartGame.show()
+#	$Lobbies/Host/CopyLink.show()
+#	$Lobbies/List/Title.hide()
+	$Lobbies.hide()
+	$StartGame.hide()
+	$PlayersList.hide()
 
 	gamestate.host_game(my_info)
 	gamestate.begin_game()
 	$CSGBox.queue_free()
+	
+	globals.show_notification("Train till death!")

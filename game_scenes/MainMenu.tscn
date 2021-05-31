@@ -72,10 +72,10 @@ __meta__ = {
 }
 
 [node name="ShadeColorPicker" parent="." instance=ExtResource( 6 )]
-margin_left = 56.7579
-margin_top = 508.0
-margin_right = 395.759
-margin_bottom = 970.002
+margin_left = 45.9462
+margin_top = 500.0
+margin_right = 384.947
+margin_bottom = 962.002
 rect_scale = Vector2( 1, 0.2 )
 
 [node name="CSGBox" parent="." instance=ExtResource( 8 )]
@@ -104,10 +104,10 @@ texture = SubResource( 3 )
 visible = false
 
 [node name="PlayerNameLabel" type="LineEdit" parent="."]
-margin_left = 50.7579
-margin_top = 447.97
-margin_right = 390.758
-margin_bottom = 484.97
+margin_left = 29.9462
+margin_top = 424.571
+margin_right = 369.946
+margin_bottom = 461.571
 rect_rotation = 0.0487281
 custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
@@ -116,18 +116,20 @@ placeholder_text = "Player Name"
 caret_blink = true
 caret_blink_speed = 0.5
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Play" type="Button" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 823.163
-margin_top = 504.962
-margin_right = 932.163
-margin_bottom = 536.962
+margin_left = 866.0
+margin_top = 519.0
+margin_right = 975.0
+margin_bottom = 551.0
 custom_styles/hover = SubResource( 6 )
 custom_styles/pressed = SubResource( 7 )
 custom_styles/focus = SubResource( 8 )
@@ -137,6 +139,27 @@ custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0.811765, 1, 1 )
 text = "Play."
 __meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deathmatch" type="Button" parent="."]
+margin_left = 734.0
+margin_top = 519.0
+margin_right = 994.0
+margin_bottom = 543.0
+text = "P v P"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Singleplayer" type="Button" parent="."]
+margin_left = 734.0
+margin_top = 484.0
+margin_right = 994.0
+margin_bottom = 511.0
+text = "Explore"
+__meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -157,13 +180,76 @@ __meta__ = {
 }
 
 [node name="user_path" type="Label" parent="."]
-margin_left = 50.7579
-margin_top = 453.571
-margin_right = 323.758
-margin_bottom = 477.571
+margin_left = 29.9462
+margin_top = 457.098
+margin_right = 302.946
+margin_bottom = 481.098
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FeedbackLink" type="LinkButton" parent="."]
+visible = false
+margin_left = 690.527
+margin_top = 404.0
+margin_right = 976.527
+margin_bottom = 420.0
+text = "Submit your Feedback, here"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameStartTimer" type="Timer" parent="."]
+
+[node name="traditional_multiplayer" type="Control" parent="."]
+visible = false
+margin_left = 734.0
+margin_top = 519.0
+margin_right = 996.0
+margin_bottom = 576.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HostButton" type="Button" parent="traditional_multiplayer"]
+margin_top = 30.0
+margin_right = 260.0
+margin_bottom = 55.0
+text = "Host"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JoinButton" type="Button" parent="traditional_multiplayer"]
+margin_left = 205.0
+margin_right = 259.0
+margin_bottom = 25.0
+text = "Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IPAddressTextBox" type="LineEdit" parent="traditional_multiplayer"]
+margin_right = 200.0
+margin_bottom = 25.0
+text = "127.0.0.1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="traditional_multiplayer"]
 
 [connection signal="color_changed" from="ShadeColorPicker" to="." method="_on_ShadeColorPicker_color_changed"]
 [connection signal="text_changed" from="PlayerNameLabel" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Play" to="." method="_on_Multiplayer_pressed"]
+[connection signal="pressed" from="Deathmatch" to="." method="_on_Deathmatch_pressed"]
+[connection signal="pressed" from="Singleplayer" to="." method="_on_Singleplayer_pressed"]
+[connection signal="pressed" from="FeedbackLink" to="." method="_on_FeedbackLink_pressed"]
+[connection signal="timeout" from="GameStartTimer" to="." method="_on_GameStartTimer_timeout"]
+[connection signal="pressed" from="traditional_multiplayer/HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="traditional_multiplayer/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="request_completed" from="traditional_multiplayer/HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
 [editable path="player"]

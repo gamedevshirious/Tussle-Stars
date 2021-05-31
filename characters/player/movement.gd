@@ -76,8 +76,8 @@ func move(delta):
 		#Rotates the charcter to the direction movement
 		rotateCharacter(direction, delta)
 	
-	var grounded = _self.is_on_floor()
 	velocity.y -= GRAVITY
+	var grounded = _self.is_on_floor()
 	
 	var just_jumped = false
 	

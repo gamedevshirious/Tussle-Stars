@@ -174,7 +174,7 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 5.0
 autostart = true
 
 [node name="LobbyEntry" parent="." instance=ExtResource( 10 )]
@@ -233,6 +233,7 @@ transform = Transform( 1.62921e-07, -1, 3.25841e-07, -1, -1.62921e-07, 0, 5.3086
 
 [node name="Camera" parent="CSGBox" instance=ExtResource( 16 )]
 transform = Transform( -0.00235105, -0.975953, -0.217968, -0.998441, 0.0144477, -0.0539204, 0.0557729, 0.217501, -0.974465, -5.86272, -1.00395, -11.586 )
+
 [connection signal="pressed" from="Lobbies/Host/Training" to="." method="_on_Training_pressed"]
 [connection signal="pressed" from="Lobbies/Host/Host" to="." method="_on_Host_pressed"]
 [connection signal="pressed" from="Lobbies/Host/Refresh" to="." method="_on_Refresh_pressed"]

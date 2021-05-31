@@ -4,7 +4,7 @@ extends Node
 const DEFAULT_PORT = 10567
 
 # Max number of players
-const MAX_PEERS = 12
+const MAX_PEERS = 2
 
 # Name for my player
 var player_info = {}
@@ -20,10 +20,23 @@ signal game_error(what)
 
 # Callback from SceneTree
 # warning-ignore:unused_argument
-func _player_connected(id):
+func _player_connected(id):	
+	if !get_tree().is_network_server():
+		return
+	
+	Gotm.lobby.locked = true
+	Gotm.lobby.hidden = true
+	
+	if players.size() >= 2:
+		end_game()
+	
+	globals.show_notification("Starting soon...")
+	get_tree().change_scene_to(load("res://game_scenes/root.tscn"))
+	yield(get_tree().create_timer(2.0), "timeout")
+	begin_game()
 	# This is not used in this demo, because _connected_ok is called for clients
 	# on success and will do the job.
-	pass
+#	globals.show_notification(str(id) + " is connected")
 
 # Callback from SceneTree
 func _player_disconnected(id):
@@ -43,12 +56,14 @@ func _connected_ok():
 	# Registration of a client beings here, tell everyone that we are here
 	rpc("register_player", get_tree().get_network_unique_id(), player_info)
 	emit_signal("connection_succeeded")
+	
+	
 
 # Callback from SceneTree, only for clients (not server)
 func _server_disconnected():
 	emit_signal("game_error", "Server disconnected")
 	end_game()
-	get_tree().paused = true
+#	get_tree().paused = true
 
 # Callback from SceneTree, only for clients (not server)
 func _connected_fail():
@@ -66,20 +81,23 @@ remote func register_player(id, new_player_info):
 			rpc_id(id, "register_player", p_id, players[p_id]) # Send player to new dude
 			rpc_id(p_id, "register_player", id, new_player_info) # Send new dude to player
 
+	
 	players[id] = new_player_info
 	emit_signal("player_list_changed")
+	
 
 remote func unregister_player(id):
 	players.erase(id)
 	emit_signal("player_list_changed")
 
-remote func pre_start_game(spawn_points):
+remote func pre_start_game(spawn_points):	
 	# Change scene
 	var world = load("res://game_scenes/levels/World.tscn").instance()
-	get_tree().get_root().get_node("root").add_child(world)
+#	print(get_tree().get_root().name)
+	add_child(world)
 
 #	print_debug(get_tree().get_root())
-	get_tree().get_root().get_node("root").get_node("lobby").hide()
+#	get_tree().get_root().get_node("root").get_node("lobby").hide()
 
 	for p_id in spawn_points:
 		var info
@@ -120,7 +138,7 @@ var players_ready = []
 
 remote func ready_to_start(id):
 	assert(get_tree().is_network_server())
-
+	
 	if (not id in players_ready):
 		players_ready.append(id)
 
@@ -146,11 +164,12 @@ func get_player_list():
 	return players.values()
 
 func get_player_info():
-	return globals.player_name
+	return globals.player_name + " | " + str(get_tree().get_network_unique_id())
 
 func begin_game():
-	assert(get_tree().is_network_server())
+	globals.show_notification(Gotm.lobby.id)
 
+	assert(get_tree().is_network_server())
 	# Create a dictionary with peer id and respective spawn points, could be improved by randomizing
 	var spawn_points = {}
 	spawn_points[1] = 0 # Server in spawn point 0
@@ -161,8 +180,6 @@ func begin_game():
 	# Call to pre-start game with the spawn points
 	for p in players:
 		rpc_id(p, "pre_start_game", spawn_points)
-
-
 	pre_start_game(spawn_points)
 
 func end_game():
@@ -172,10 +189,11 @@ func end_game():
 
 	get_tree().set_network_peer(null) # End networking
 	players.clear()
-	emit_signal("game_ended")
+	get_tree().change_scene("res://game_scenes/MainMenu.tscn")
 
 func _ready():
 	players.clear()
+	player_info.clear()
 # warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 # warning-ignore:return_value_discarded
