@@ -445,7 +445,7 @@ mesh = SubResource( 13 )
 material/0 = SubResource( 8 )
 
 [node name="knee" type="Position3D" parent="Mesh/legs/left/upper"]
-transform = Transform( 0.995371, 0.0731273, -0.0623549, 0.0515483, 0.141335, 0.98862, 0.0811079, -0.987258, 0.136911, 0.00958213, -0.0103616, 0.53348 )
+transform = Transform( 0.990613, 0.109569, -0.0817311, 0.0504906, 0.262335, 0.963656, 0.127028, -0.958737, 0.25434, 0.00958207, -0.0103618, 0.53348 )
 __meta__ = {
 "_edit_group_": true
 }
