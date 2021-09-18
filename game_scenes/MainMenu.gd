@@ -31,8 +31,10 @@ func _ready():
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
+	$player_details/ShadeColorPicker.rect_scale.y = .25
+	
 	globals.player_name = globals.save_game["player_name"]
-	$PlayerNameLabel.text = globals.player_name
+	$player_details/PlayerNameLabel.text = globals.player_name
 	
 	$CSGBox/Camera.current = true
 	

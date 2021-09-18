@@ -371,7 +371,7 @@ material/0 = SubResource( 8 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.20179, 3.39314, 0.0108065 )
 
 [node name="left" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.291591, 0.557045, -0.777608, -0.706782, 0.422305, 0.567553, 0.644542, 0.715093, 0.27057, 0.00324064, 3.11875, -0.2952 )
+transform = Transform( -0.0784419, 0.11195, -0.990612, -0.760627, 0.635614, 0.132062, 0.644433, 0.763846, 0.0352946, 0.00324063, 3.11875, -0.2952 )
 
 [node name="upper" type="MeshInstance" parent="Mesh/torso/left"]
 transform = Transform( 1, 2.98023e-08, 0, 1.19209e-07, 1, 1.49012e-08, -1.49012e-08, -7.45058e-08, 1, -2.38419e-07, 1.19209e-07, -0.409 )
@@ -379,7 +379,7 @@ mesh = SubResource( 11 )
 material/0 = SubResource( 8 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/left/upper"]
-transform = Transform( -0.335766, -0.910953, 0.239635, 0.88745, -0.391209, -0.243696, 0.315743, 0.130839, 0.939781, -0.0206976, 0.0137599, -0.401772 )
+transform = Transform( -0.3752, -0.925682, 0.0483446, 0.813566, -0.353853, -0.461409, 0.444224, -0.133789, 0.885871, -0.0206976, 0.0137601, -0.401772 )
 
 [node name="hand" type="MeshInstance" parent="Mesh/torso/left/upper/elbow"]
 transform = Transform( 1, 1.11759e-08, -2.98023e-08, -3.35276e-08, 1, 7.45058e-09, 0, -2.98023e-08, 1, -0.0154518, -0.020665, -0.403422 )
@@ -387,7 +387,7 @@ mesh = SubResource( 12 )
 material/0 = SubResource( 8 )
 
 [node name="right" type="Position3D" parent="Mesh/torso"]
-transform = Transform( -0.411157, 0.90068, 0.140438, 0.470914, 0.0779545, 0.878728, 0.780506, 0.427429, -0.456195, 0.00324076, 3.13388, 0.3 )
+transform = Transform( -0.495971, 0.867646, 0.0346605, 0.574572, 0.297989, 0.762279, 0.65106, 0.397983, -0.64632, 0.00324075, 3.13388, 0.3 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -398,7 +398,7 @@ mesh = SubResource( 11 )
 material/0 = SubResource( 8 )
 
 [node name="elbow" type="Position3D" parent="Mesh/torso/right/upper"]
-transform = Transform( -0.761415, 0.588183, 0.272561, -0.644929, -0.644685, -0.410424, -0.0656891, -0.488284, 0.870211, -0.00837255, -0.00542808, -0.410209 )
+transform = Transform( 0.471968, -0.63062, 0.616091, -0.212671, -0.75962, -0.614617, 0.855581, 0.159053, -0.492633, -0.00837159, -0.00542897, -0.410209 )
 __meta__ = {
 "_edit_group_": true
 }
